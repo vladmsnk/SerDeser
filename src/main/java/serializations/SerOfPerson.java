@@ -18,6 +18,9 @@ public class SerOfPerson implements Serializable<Person>{
                 "}";
     }
     public String ListOfObjToJson(ArrayList<Person> listOfObj) {
+        if (listOfObj.size() == 0) {
+            return "";
+        }
         String jsonString = (listOfObj.size() > 1) ? "{" : "";
         for (Person person : listOfObj) {
             jsonString = jsonString.concat(objToJson(person));

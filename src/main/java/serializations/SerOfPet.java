@@ -12,9 +12,10 @@ public class SerOfPet implements Serializable<Pet>{
                 "}";
     }
     public String ListOfObjToJson(ArrayList<Pet> listOfObj) {
-
+        if (listOfObj.size() == 0) {
+            return "";
+        }
         String jsonString = (listOfObj.size() > 1) ? "{" : "";
-
         for (Pet pet : listOfObj) {
             jsonString = jsonString.concat("{" +
                     "\"petName\":" + '"' + pet.getPetName() + '"' +
