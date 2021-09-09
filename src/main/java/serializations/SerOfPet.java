@@ -4,7 +4,7 @@ package serializations;
 import java.util.List;
 import entities.Pet;
 
-public class SerOfPet implements Srializable<Pet>{
+public class SerOfPet implements Serializable<Pet>{
     public String objToJson(Pet obj) {
         return "{" +
                 "\"petName\":" + '"' + obj.getPetName() + '"' +
