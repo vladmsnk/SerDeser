@@ -1,9 +1,10 @@
 package serializations;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 
 public interface Serializable<T>{
     String objToJson(T obj);
-    String ListOfObjToJson(List<T> listOfObj);
+    String ListOfObjToJson(ArrayList<T> listOfObj);
 }

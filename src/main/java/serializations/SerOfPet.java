@@ -1,7 +1,7 @@
 package serializations;
 
 
-import java.util.List;
+import java.util.ArrayList;
 import entities.Pet;
 
 public class SerOfPet implements Serializable<Pet>{
@@ -11,16 +11,20 @@ public class SerOfPet implements Serializable<Pet>{
                 ", \"petType\":" + '"' + obj.getPetType() + '"' +
                 "}";
     }
-    public String ListOfObjToJson(List<Pet> listOfObj) {
-        String jsonString = "{";
+    public String ListOfObjToJson(ArrayList<Pet> listOfObj) {
+
+        String jsonString = (listOfObj.size() > 1) ? "{" : "";
+
         for (Pet pet : listOfObj) {
             jsonString = jsonString.concat("{" +
                     "\"petName\":" + '"' + pet.getPetName() + '"' +
                     ", \"petType\":" + '"' + pet.getPetType() + '"' +
                     "}, ");
         }
-        jsonString = jsonString.substring(0, jsonString.length() - 1);
-        jsonString += "}";
+        jsonString = jsonString.substring(0, jsonString.length() - 2);
+        if (listOfObj.size() > 1) {
+            jsonString += "}";
+        }
         return  jsonString;
     }
 }
