@@ -10,9 +10,15 @@ public class Home {
     public void addRoom(Room room) {
         roomes.add(room);
     }
-    public int getHomeNumber() {
-        return homeNumber;
+
+    public String getHomeNumber() {
+        return String.valueOf(homeNumber);
     }
+
+    public ArrayList<Room> getRoomes() {
+        return new ArrayList<>(roomes);
+    }
+
     private int homeNumber;
-    private ArrayList<Room> roomes = new ArrayList<Room>();
+    private ArrayList<Room> roomes = new ArrayList<>();
 }
