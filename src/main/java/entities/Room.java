@@ -3,7 +3,7 @@ package entities;
 import java.util.ArrayList;
 
 public class Room {
-    Room(int roomNumber) {
+    public Room(int roomNumber) {
         this.roomNumber = roomNumber;
         this.peopleCount = 0;
     }
@@ -12,12 +12,16 @@ public class Room {
         this.residents.add(person);
     }
 
-    public int getPeopleCount() {
-        return peopleCount;
+    public String getPeopleCount() {
+        return String.valueOf(peopleCount);
     }
 
-    public int getRoomNumber() {
-        return roomNumber;
+    public String getRoomNumber() {
+        return String.valueOf(roomNumber);
+    }
+
+    public ArrayList<Person> getResidents() {
+        return new ArrayList<>(residents);
     }
 
     private int roomNumber;
