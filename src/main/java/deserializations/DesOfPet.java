@@ -27,6 +27,7 @@ public class DesOfPet implements Deserializable<Pet>{
         if (jsonString.isEmpty()) {
             return null;
         }
+
         ArrayList<Pet> pets = new ArrayList<>();
         //delete external { and }
         jsonString = jsonString.substring(1, jsonString.length() - 1);
