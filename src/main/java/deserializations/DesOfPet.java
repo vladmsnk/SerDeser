@@ -22,20 +22,27 @@ public class DesOfPet implements Deserializable<Pet>{
         jsonString = jsonString.substring(tmp2 + 1, jsonString.length());
         return new Pet(name, lastName);
     }
-//    {"petName":"Bob", "petType":"Cat"}, {"petName":"Bob", "petType":"Cat"}
+//  example  {{"petName":"Bob", "petType":"Cat"}, {"petName":"Bob", "petType":"Cat"}}
     public ArrayList<Pet> FromJsonToList(String jsonString) {
         if (jsonString.isEmpty()) {
             return null;
         }
         ArrayList<Pet> pets = new ArrayList<>();
+        //delete external { and }
         jsonString = jsonString.substring(1, jsonString.length() - 1);
         while (!jsonString.isEmpty()) {
+            //goal is the index of the } which closes json substring
            int goal = jsonString.indexOf("}") + 1;
+           //implement parcing for one pet, we have there the thing like this {"petName":"Bob", "petType":"Cat"}
+            // so it is simple to implement desirialization for one pet
+            //after it we add the object to the array
            pets.add(FromJsonToObj(jsonString.substring(0 , goal)));
            if (goal == jsonString.length()) {
+               // if we at the end of the thring
                jsonString = "";
            }
            else {
+               // we skip coma
                jsonString = jsonString.substring(goal + 3);
            }
         }

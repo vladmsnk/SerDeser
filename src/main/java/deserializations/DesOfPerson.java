@@ -11,26 +11,25 @@ public class DesOfPerson implements Deserializable<Person> {
         if (jsonString.isEmpty()) {
             return null;
         }
-        String personName;
-        String personLastName;
-        int moneyCount;
-        ArrayList<Pet> pets;
         int tmp1 = jsonString.indexOf(":");
         int tmp2 = jsonString.indexOf(",");
-        personName = jsonString.substring(tmp1 + 2, tmp2 - 1);
+        String personName = jsonString.substring(tmp1 + 2, tmp2 - 1);
         jsonString = jsonString.substring(tmp2 + 1);
         tmp1 = jsonString.indexOf(":");
         tmp2 = jsonString.indexOf(",");
-        personLastName = jsonString.substring(tmp1 + 2, tmp2 - 1);
+        String personLastName = jsonString.substring(tmp1 + 2, tmp2 - 1);
         jsonString = jsonString.substring(tmp2 + 1);
         tmp1 = jsonString.indexOf(":");
         tmp2 = jsonString.indexOf(",");
-        moneyCount = Integer.parseInt(jsonString.substring(tmp1 + 2, tmp2 - 1));
+        int moneyCount = Integer.parseInt(jsonString.substring(tmp1 + 2, tmp2 - 1));
         jsonString = jsonString.substring(tmp2 + 1);
         tmp1 = jsonString.indexOf("[");
         tmp2 = jsonString.indexOf("]");
+        //when have jsonString that looks like something this [{...}, {...}]}
+        //we are able to implement desirialisation for the json string of pets and get the array of pets
         DesOfPet desOfPet = new DesOfPet();
-        pets = desOfPet.FromJsonToList(jsonString.substring(tmp1, tmp2 + 1));
+        //jsonString.substring(tmp1, tmp2 + 1) == [{...}, {...}], then [ ] will be deleted
+        ArrayList<Pet> pets = desOfPet.FromJsonToList(jsonString.substring(tmp1, tmp2 + 1));
         Person person = new Person(personName, personLastName, moneyCount);
         for (Pet pet : pets) {
             person.assignPet(pet);
@@ -39,6 +38,21 @@ public class DesOfPerson implements Deserializable<Person> {
     }
 
     public ArrayList<Person> FromJsonToList(String jsonString) {
-        return new ArrayList<>();
+        if (jsonString.isEmpty()) {
+            return null;
+        }
+        ArrayList<Person> people = new ArrayList<>();
+        jsonString = jsonString.substring(1, jsonString.length() - 1);
+        while (!jsonString.isEmpty()) {
+            int goal = jsonString.indexOf("]") + 2;
+            people.add(FromJsonToObj(jsonString.substring(0 , goal)));
+            if (goal == jsonString.length()) {
+                jsonString = "";
+            }
+            else {
+                jsonString = jsonString.substring(goal + 3);
+            }
+        }
+        return people;
     }
 }
