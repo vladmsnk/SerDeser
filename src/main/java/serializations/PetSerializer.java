@@ -4,8 +4,7 @@ package serializations;
 import java.util.ArrayList;
 import entities.Pet;
 
-public class SerOfPet implements Serializable<Pet>{
-
+public class PetSerializer implements Serializable<Pet>{
 
     public String objToJson(Pet pet) {
         if (pet == null) {
