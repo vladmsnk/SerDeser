@@ -14,7 +14,7 @@ public class StreetSerializer implements Serializable<Street> {
         HomeSerializer homeSerializer = new HomeSerializer();
         String homes = "[" + homeSerializer.ListOfObjToJson(street.getHomes()) + "]";
         return "{" +
-                "\"streetName\":" + '"' + street.getStreetName() +
+                "\"streetName\":" + '"' + street.getStreetName() + '"' +
                 ", \"homes\":" + homes +
                 "}";
     }

@@ -14,7 +14,7 @@ public class RoomSerializer implements Serializable<Room>{
             PersonSerializer personSerializer = new PersonSerializer();
             String people = "[" + personSerializer.ListOfObjToJson(room.getResidents()) + "]";
             return "{" +
-                    "\"roomNumber\":" + '"' + room.getRoomNumber() +
+                    "\"roomNumber\":" + '"' + room.getRoomNumber() + '"' +
                     ", \"people\":" + people +
                     "}";
         }
