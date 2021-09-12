@@ -1,2 +1,7 @@
-package restrictions;public enum Animals {
+package restrictions;
+
+public enum Animals {
+    DOG,
+    BIRD,
+    CAT
 }
