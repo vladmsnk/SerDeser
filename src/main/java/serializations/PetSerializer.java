@@ -18,7 +18,7 @@ public class PetSerializer implements Serializable<Pet>{
 
     public String ListOfObjToJson(ArrayList<Pet> listOfPets) {
         if (listOfPets == null) {
-            throw new NullPointerException("List of Pet objects does not exist!");
+            return "";
         }
         String jsonStringOfPets = (listOfPets.size() > 1) ? "{" : "";
         for (Pet pet : listOfPets) {

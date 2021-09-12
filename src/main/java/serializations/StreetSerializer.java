@@ -6,16 +6,18 @@ import entities.Street;
 import java.util.ArrayList;
 
 
-public class SerOfStreet implements Serializable<Street> {
-    public String objToJson(Street obj) {
-        SerOfHome serOfHome = new SerOfHome();
-        String homes = "[" + serOfHome.ListOfObjToJson(obj.getHomes()) + "]";
+public class StreetSerializer implements Serializable<Street> {
+    public String objToJson(Street street) {
+        if (street == null) {
+            throw new NullPointerException("Street object does not exist!");
+        }
+        HomeSerializer homeSerializer = new HomeSerializer();
+        String homes = "[" + homeSerializer.ListOfObjToJson(street.getHomes()) + "]";
         return "{" +
-                "\"streetName\":" + '"' + obj.getStreetName() +
-                "\"homes\":" + homes +
+                "\"streetName\":" + '"' + street.getStreetName() +
+                ", \"homes\":" + homes +
                 "}";
     }
-
     public String ListOfObjToJson(ArrayList<Street> listOfObj) {
         if (listOfObj.size() == 0) {
             return "";
