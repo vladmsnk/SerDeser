@@ -7,6 +7,11 @@ public class Room {
         this.roomNumber = roomNumber;
         this.peopleCount = 0;
     }
+
+    private int roomNumber;
+    private int peopleCount;
+    private ArrayList<Person> residents = new ArrayList<>();
+
     public void assignResident(Person person) {
         this.peopleCount++;
         this.residents.add(person);
@@ -24,7 +29,4 @@ public class Room {
         return new ArrayList<>(residents);
     }
 
-    private int roomNumber;
-    private int peopleCount;
-    private ArrayList<Person> residents = new ArrayList<Person>();
 }

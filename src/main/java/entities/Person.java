@@ -11,6 +11,14 @@ public class Person {
         this.moneyCount = moneyCount;
         this.petCount = 0;
     }
+
+    private String personName;
+    private String personLastName;
+    private int moneyCount;
+    private int petCount;
+    private ArrayList<Pet> personsPet = new ArrayList<Pet>();
+
+
     public String getPersonName() {
         return personName;
     }
@@ -38,9 +46,4 @@ public class Person {
         return new ArrayList<>(personsPet);
     }
 
-    private String personName;
-    private String personLastName;
-    private int moneyCount;
-    private int petCount;
-    private ArrayList<Pet> personsPet = new ArrayList<Pet>();
 }

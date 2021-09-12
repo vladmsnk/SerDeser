@@ -7,6 +7,9 @@ public class Home {
         this.homeNumber = homeNumber;
     }
 
+    private int homeNumber;
+    private ArrayList<Room> roomes = new ArrayList<>();
+
     public void addRoom(Room room) {
         roomes.add(room);
     }
@@ -19,6 +22,4 @@ public class Home {
         return new ArrayList<>(roomes);
     }
 
-    private int homeNumber;
-    private ArrayList<Room> roomes = new ArrayList<>();
 }
