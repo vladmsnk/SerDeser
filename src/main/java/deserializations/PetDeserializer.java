@@ -1,26 +1,26 @@
 package deserializations;
 
 import entities.Pet;
+import restrictions.Animals;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DesOfPet implements Deserializable<Pet>{
-    public Pet FromJsonToObj(String jsonString) {
-        if (jsonString.isEmpty()) {
+    public Pet FromJsonToObj(String jsonStringOfPet) {
+        if (jsonStringOfPet.isEmpty()) {
             return null;
         }
-        String name;
-        String lastName;
-        int tmp1 = jsonString.indexOf(":");
-        int tmp2 = jsonString.indexOf(",");
-        name = jsonString.substring(tmp1 + 2, tmp2 - 1);
-        jsonString = jsonString.substring(tmp2 + 1, jsonString.length());
-        tmp1 = jsonString.indexOf(":");
-        tmp2 = jsonString.indexOf("}");
-        lastName = jsonString.substring(tmp1 + 2, tmp2 - 1);
-        jsonString = jsonString.substring(tmp2 + 1, jsonString.length());
-        return new Pet(name, lastName);
+        int tmp1 = jsonStringOfPet.indexOf(":");
+        int tmp2 = jsonStringOfPet.indexOf(",");
+        String name = jsonStringOfPet.substring(tmp1 + 2, tmp2 - 1);
+        jsonStringOfPet = jsonStringOfPet.substring(tmp2 + 1, jsonStringOfPet.length());
+        tmp1 = jsonStringOfPet.indexOf(":");
+        tmp2 = jsonStringOfPet.indexOf("}");
+        String lastName = jsonStringOfPet.substring(tmp1 + 2, tmp2 - 1);
+        jsonStringOfPet = jsonStringOfPet.substring(tmp2 + 1, jsonStringOfPet.length());
+        return new Pet(name, Animals.BIRD);
     }
 //  example  {{"petName":"Bob", "petType":"Cat"}, {"petName":"Bob", "petType":"Cat"}}
     public ArrayList<Pet> FromJsonToList(String jsonString) {
