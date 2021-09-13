@@ -9,29 +9,29 @@ import tools.Tools;
 
 
 public class StreetDirector {
-    private String decision;
+    private String decision;;
+    private Scanner scanner = new Scanner(System.in) ;
 
-    private void chooseYesOrNO(Scanner scanner, String decision) {
-
+    private void chooseYesOrNO() {
         System.out.println("1. Yes");
         System.out.println("2. No");
-        decision = scanner.nextLine();
-        while (Tools.checkCorrectDecision(decision)) {
+        decision = scanner.next();
+        while (!Tools.checkCorrectDecision(decision)) {
             System.out.println("Wrong decision! Input again");
-            decision = scanner.nextLine();
+            decision = scanner.next();
         }
     }
+
     public void constructStreetFromConsole(Builder builder) {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Input Street Name");
             String streetName = scanner.nextLine();
             builder.establishStreet(streetName);
             System.out.println("Do you want to finish building street?");
-            chooseYesOrNO(scanner, decision);
-            if (decision.equals("1") || decision.equals("Yes")) {
+            chooseYesOrNO();
+            if (this.decision.equals("1") || this.decision.equals("Yes")) {
                 System.out.println("Do you want to create new Street ?");
-                chooseYesOrNO(scanner, decision);
+                chooseYesOrNO();
                 if (decision.equals("2") || decision.equals("No")) {
                     break;
                 }
@@ -58,43 +58,43 @@ public class StreetDirector {
                         builder.buildRoom(roomNumber);
                         while (true) {
                             System.out.println("Input Person Name");
-                            String personName = scanner.nextLine();
+                            String personName = scanner.next();
                             System.out.println("Input person LastName");
-                            String personLastName = scanner.nextLine();
+                            String personLastName = scanner.next();
                             System.out.println("Input person's money count");
                             int moneyCount = scanner.nextInt();
                             builder.addResident(personName, personLastName, moneyCount);
                             while (true) {
                                 System.out.println("Input Pet Name");
-                                String petName = scanner.nextLine();
+                                String petName = scanner.next();
                                 System.out.println("Input Animal Type");
-                                String animalType = scanner.nextLine();
+                                String animalType = scanner.next();
                                 while (!Tools.isEnumContainsString(animalType)) {
                                     System.out.println("Inappropriate animal!");
-                                    animalType = scanner.nextLine();
+                                    animalType = scanner.next();
                                 }
                                 Animals animal = Animals.valueOf(animalType);
                                 builder.assignPetToResident(petName, animal);
                                 System.out.println("Do you want to add Pet?");
-                                chooseYesOrNO(scanner, decision);
+                                chooseYesOrNO();
                                 if (decision.equals("No") || decision.equals("2")) {
                                     break;
                                 }
                             }
                             System.out.println("Do you want to add Resident?");
-                            chooseYesOrNO(scanner, decision);
+                            chooseYesOrNO();
                             if (decision.equals("No") || decision.equals("2")) {
                                 break;
                             }
                         }
                         System.out.println("Do you want to add Room?");
-                        chooseYesOrNO(scanner, decision);
+                        chooseYesOrNO();
                         if (decision.equals("No") || decision.equals("2")) {
                             break;
                         }
                     }
                     System.out.println("Do you want ot add Home");
-                    chooseYesOrNO(scanner, decision);
+                    chooseYesOrNO();
                     if (decision.equals("No") || decision.equals("2")) {
                         break;
                     }
