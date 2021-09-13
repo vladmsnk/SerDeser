@@ -2,37 +2,41 @@ package builders;
 
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import restrictions.Animals;
 import tools.Tools;
 
 
 public class StreetDirector {
+    private String decision;
 
+    private void chooseYesOrNO(Scanner scanner, String decision) {
+
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+        decision = scanner.nextLine();
+        while (Tools.checkCorrectDecision(decision)) {
+            System.out.println("Wrong decision! Input again");
+            decision = scanner.nextLine();
+        }
+    }
     public void constructStreetFromConsole(Builder builder) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Input Street Name");
             String streetName = scanner.nextLine();
             builder.establishStreet(streetName);
-            System.out.println("Do you want to end building street?");
-            System.out.println("1. Yes");
-            System.out.println("2. No");
-            String decision = scanner.nextLine();
-            while (Tools.checkCorrectDecision(decision)) {
-                System.out.println("Wrong decision! Input again");
-                decision = scanner.nextLine();
-            }
+            System.out.println("Do you want to finish building street?");
+            chooseYesOrNO(scanner, decision);
             if (decision.equals("1") || decision.equals("Yes")) {
                 System.out.println("Do you want to create new Street ?");
-                System.out.println("1. Yes");
-                System.out.println("2. No");
-
-                String decision1 = scanner.nextLine();
-                while (Tools.checkCorrectDecision(decision1)) {
-                    System.out.println("Wrong decision! Input again");
-                    decision1 = scanner.nextLine();
-                }
-                if (decision1.equals("2") || decision1.equals("No")) {
+                chooseYesOrNO(scanner, decision);
+                if (decision.equals("2") || decision.equals("No")) {
                     break;
+                }
+                else {
+                    continue;
                 }
             }
             else {
@@ -44,9 +48,60 @@ public class StreetDirector {
                         homeNumber = scanner.nextInt();
                     }
                     builder.buildHome(homeNumber);
+                    while (true) {
+                        System.out.println("Input Room Number");
+                        int roomNumber = scanner.nextInt();
+                        while (roomNumber <= 0) {
+                            System.out.println("Wrong Room Number format! Input again");
+                            roomNumber = scanner.nextInt();
+                        }
+                        builder.buildRoom(roomNumber);
+                        while (true) {
+                            System.out.println("Input Person Name");
+                            String personName = scanner.nextLine();
+                            System.out.println("Input person LastName");
+                            String personLastName = scanner.nextLine();
+                            System.out.println("Input person's money count");
+                            int moneyCount = scanner.nextInt();
+                            builder.addResident(personName, personLastName, moneyCount);
+                            while (true) {
+                                System.out.println("Input Pet Name");
+                                String petName = scanner.nextLine();
+                                System.out.println("Input Animal Type");
+                                String animalType = scanner.nextLine();
+                                while (!Tools.isEnumContainsString(animalType)) {
+                                    System.out.println("Inappropriate animal!");
+                                    animalType = scanner.nextLine();
+                                }
+                                Animals animal = Animals.valueOf(animalType);
+                                builder.assignPetToResident(petName, animal);
+                                System.out.println("Do you want to add Pet?");
+                                chooseYesOrNO(scanner, decision);
+                                if (decision.equals("No") || decision.equals("2")) {
+                                    break;
+                                }
+                            }
+                            System.out.println("Do you want to add Resident?");
+                            chooseYesOrNO(scanner, decision);
+                            if (decision.equals("No") || decision.equals("2")) {
+                                break;
+                            }
+                        }
+                        System.out.println("Do you want to add Room?");
+                        chooseYesOrNO(scanner, decision);
+                        if (decision.equals("No") || decision.equals("2")) {
+                            break;
+                        }
+                    }
+                    System.out.println("Do you want ot add Home");
+                    chooseYesOrNO(scanner, decision);
+                    if (decision.equals("No") || decision.equals("2")) {
+                        break;
+                    }
                 }
             }
-
+            System.out.println("The street has been built!");
+            break;
         }
     }
 }
