@@ -1,16 +1,14 @@
-package builders;
-
+package inputoutput;
 
 import entities.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import restrictions.Animals;
 import tools.Tools;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class StreetDirector {
-    private String decision;;
+public class ConsoleIO {
+    private String decision;
     private Scanner scanner = new Scanner(System.in);
     private ArrayList<Pet> pets = new ArrayList<>();
     private ArrayList<Person> people = new ArrayList<>();
@@ -26,6 +24,8 @@ public class StreetDirector {
             decision = scanner.next();
         }
     }
+
+
     public Street constructStreetFromConsole() {
         System.out.println("Input Street Name");
         String streetName = scanner.nextLine();
@@ -107,5 +107,24 @@ public class StreetDirector {
             break;
         }
         return new Street.Builder().withStreetName(streetName).withHomes(homes).build();
+    }
+
+    public void printStreetToConsole(Street street) {
+        System.out.println("Street name: " + street.getStreetName());
+        for (Home home : street.getHomes()) {
+            System.out.println("Home :" + home.getHomeNumber());
+            for (Room room : home.getRooms()) {
+                System.out.println(" Room :" + room.getRoomNumber());
+                for (Person person : room.getResidents()) {
+                    System.out.println("  Resident: " + person.getPersonName() + " " + person.getPersonName());
+                    System.out.println("  Possesion: " + person.getMoneyCount());
+                    for (Pet pet : person.getPersonsPet()) {
+                        System.out.println("   Pets");
+                        System.out.println("   PetName: " + pet.getPetName());
+                        System.out.println("   AnimalType: " + pet.getAnimalType());
+                    }
+                }
+            }
+        }
     }
 }
