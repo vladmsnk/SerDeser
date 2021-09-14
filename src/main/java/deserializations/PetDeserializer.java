@@ -28,7 +28,6 @@ public class PetDeserializer implements Deserializer<Pet> {
             return null;
         }
         ArrayList<Pet> pets = new ArrayList<>();
-        //delete external { and }
         jsonStringOfPets = jsonStringOfPets.substring(1, jsonStringOfPets.length() - 1);
         while (!jsonStringOfPets.isEmpty()) {
            int goal = jsonStringOfPets.indexOf("}") + 1;

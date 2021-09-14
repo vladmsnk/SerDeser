@@ -1,35 +1,30 @@
 package deserializations;
 
 import entities.Home;
-import entities.Room;
 import entities.Street;
 import tools.Tools;
 
 import java.util.ArrayList;
 
-public class StreetDeserializer implements Deserializable<Street>{
+public class StreetDeserializer implements Deserializer<Street> {
     public Street FromJsonToObj(String jsonStringOfStreet) {
         if (jsonStringOfStreet == null) {
             return null;
         }
-        int tmp1 = jsonStringOfStreet.indexOf(":") + 2;
-        int tmp2 = jsonStringOfStreet.indexOf(",") - 1;
-        String streetName = jsonStringOfStreet.substring(tmp1, tmp2);
-        jsonStringOfStreet = jsonStringOfStreet.substring(tmp2 + 1);
-        tmp1 = jsonStringOfStreet.indexOf("[");
+        int index1 = jsonStringOfStreet.indexOf(":") + 2;
+        int index2 = jsonStringOfStreet.indexOf(",") - 1;
+        String streetName = jsonStringOfStreet.substring(index1, index2);
+        jsonStringOfStreet = jsonStringOfStreet.substring(index2 + 1);
+        index1 = jsonStringOfStreet.indexOf("[");
         if (Tools.countEntry(jsonStringOfStreet, "streetName") == 0) {
-            tmp2 = jsonStringOfStreet.length() - 1;
+            index2 = jsonStringOfStreet.length() - 1;
         }
         else {
-            tmp2 = jsonStringOfStreet.indexOf("streetName") - 5;
+            index2 = jsonStringOfStreet.indexOf("streetName") - 5;
         }
         HomeDeserializer homeDeserializer = new HomeDeserializer();
-        ArrayList<Home> homes = homeDeserializer.FromJsonToList(jsonStringOfStreet.substring(tmp1, tmp2));
-        Street street = new Street(streetName);
-        for (Home home : homes) {
-            street.addHome(home);
-        }
-        return street;
+        ArrayList<Home> homes = homeDeserializer.FromJsonToList(jsonStringOfStreet.substring(index1, index2));
+        return new Street.Builder().withStreetName(streetName).withHomes(homes).build();
     }
 
     public ArrayList<Street> FromJsonToList(String jsonStringOfStreet) {
@@ -46,9 +41,9 @@ public class StreetDeserializer implements Deserializable<Street>{
             }
             else {
                 int doubleDotIndex = jsonStringOfStreet.indexOf(":");
-                int tmp = jsonStringOfStreet.indexOf("streetName",doubleDotIndex) - 4;
-                streets.add(FromJsonToObj(jsonStringOfStreet.substring(0, tmp)));
-                jsonStringOfStreet = jsonStringOfStreet.substring(tmp + 3);
+                int indexOfStreetName = jsonStringOfStreet.indexOf("streetName",doubleDotIndex) - 4;
+                streets.add(FromJsonToObj(jsonStringOfStreet.substring(0, indexOfStreetName)));
+                jsonStringOfStreet = jsonStringOfStreet.substring(indexOfStreetName + 3);
             }
         }
         return streets;
