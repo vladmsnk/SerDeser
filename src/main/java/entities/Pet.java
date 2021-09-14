@@ -1,28 +1,41 @@
 package entities;
 
-public class Pet {
-    public Pet(String petName, String petType) {
-        this.petName = petName;
-        this.petType = petType;
-    }
+import restrictions.Animals;
 
-    private String petName;
-    private String petType;
+public class Pet {
+    private final String petName;
+    private final Animals animalType;
+
+    public Pet(String petName, Animals animalType) {
+        this.petName = petName;
+        this.animalType = animalType;
+    }
 
     public String getPetName() {
         return petName;
     }
 
-    public String getPetType() {
-        return petType;
+    public String getAnimalType() {
+        return animalType.name();
     }
 
-    public void setPetName(String petName) {
-        this.petName = petName;
-    }
+    public static class Builder {
+        private String petName;
+        private Animals animalType;
 
-    public void setPetType(String petType) {
-        this.petType = petType;
+        public Builder withPetName(String petName) {
+            this.petName = petName;
+            return this;
+        }
+
+        public Builder withAnimalType(Animals animalType) {
+            this.animalType = animalType;
+            return this;
+        }
+
+        public Pet build() {
+            return new Pet(petName, animalType);
+        }
     }
 
 }
