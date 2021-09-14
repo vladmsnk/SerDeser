@@ -1,8 +1,9 @@
 package builders;
 
 
+import entities.*;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 import restrictions.Animals;
 import tools.Tools;
@@ -10,7 +11,11 @@ import tools.Tools;
 
 public class StreetDirector {
     private String decision;;
-    private Scanner scanner = new Scanner(System.in) ;
+    private Scanner scanner = new Scanner(System.in);
+    private ArrayList<Pet> pets = new ArrayList<>();
+    private ArrayList<Person> people = new ArrayList<>();
+    private ArrayList<Room> rooms = new ArrayList<>();
+    private ArrayList<Home> homes = new ArrayList<>();
 
     private void chooseYesOrNO() {
         System.out.println("1. Yes");
@@ -21,12 +26,10 @@ public class StreetDirector {
             decision = scanner.next();
         }
     }
-
-    public void constructStreetFromConsole(Builder builder) {
+    public Street constructStreetFromConsole() {
+        System.out.println("Input Street Name");
+        String streetName = scanner.nextLine();
         while (true) {
-            System.out.println("Input Street Name");
-            String streetName = scanner.nextLine();
-            builder.establishStreet(streetName);
             System.out.println("Do you want to finish building street?");
             chooseYesOrNO();
             if (this.decision.equals("1") || this.decision.equals("Yes")) {
@@ -47,7 +50,6 @@ public class StreetDirector {
                         System.out.println("Wrong Home Number format! Input again");
                         homeNumber = scanner.nextInt();
                     }
-                    builder.buildHome(homeNumber);
                     while (true) {
                         System.out.println("Input Room Number");
                         int roomNumber = scanner.nextInt();
@@ -55,7 +57,6 @@ public class StreetDirector {
                             System.out.println("Wrong Room Number format! Input again");
                             roomNumber = scanner.nextInt();
                         }
-                        builder.buildRoom(roomNumber);
                         while (true) {
                             System.out.println("Input Person Name");
                             String personName = scanner.next();
@@ -63,7 +64,6 @@ public class StreetDirector {
                             String personLastName = scanner.next();
                             System.out.println("Input person's money count");
                             int moneyCount = scanner.nextInt();
-                            builder.addResident(personName, personLastName, moneyCount);
                             while (true) {
                                 System.out.println("Input Pet Name");
                                 String petName = scanner.next();
@@ -74,26 +74,29 @@ public class StreetDirector {
                                     animalType = scanner.next();
                                 }
                                 Animals animal = Animals.valueOf(animalType);
-                                builder.assignPetToResident(petName, animal);
+                                pets.add(new Pet.Builder().withPetName(petName).withAnimalType(animal).build());
                                 System.out.println("Do you want to add Pet?");
                                 chooseYesOrNO();
                                 if (decision.equals("No") || decision.equals("2")) {
                                     break;
                                 }
                             }
+                            people.add(new Person.Builder().withPersonName(personName).withPersonLastName(personLastName).withMoneyCount(moneyCount).withPets(pets).build());
                             System.out.println("Do you want to add Resident?");
                             chooseYesOrNO();
                             if (decision.equals("No") || decision.equals("2")) {
                                 break;
                             }
                         }
+                        rooms.add(new Room.Builder().withRoomNumber(roomNumber).withResidents(people).build());
                         System.out.println("Do you want to add Room?");
                         chooseYesOrNO();
                         if (decision.equals("No") || decision.equals("2")) {
                             break;
                         }
                     }
-                    System.out.println("Do you want ot add Home");
+                    homes.add(new Home.Builder().withHomeNumber(homeNumber).withRooms(rooms).build());
+                    System.out.println("Do you want to add Home?");
                     chooseYesOrNO();
                     if (decision.equals("No") || decision.equals("2")) {
                         break;
@@ -103,5 +106,6 @@ public class StreetDirector {
             System.out.println("The street has been built!");
             break;
         }
+        return new Street.Builder().withStreetName(streetName).withHomes(homes).build();
     }
 }
