@@ -5,61 +5,44 @@ import entities.Pet;
 
 import java.util.ArrayList;
 
-//{"personName":"Name", "personLastName":"lastName", "moneyCount":"count", "petCount":"count", "pets":[]}
-public class DesOfPerson implements Deserializable<Person> {
-    public Person FromJsonToObj(String jsonString) {
-        if (jsonString.isEmpty()) {
+public class PersonDeserializer implements Deserializer<Person> {
+    public Person FromJsonToObj(String jsonStringOfPerson) {
+        if (jsonStringOfPerson.isEmpty()) {
             return null;
         }
-        int tmp1 = jsonString.indexOf(":");
-        int tmp2 = jsonString.indexOf(",");
-        String personName = jsonString.substring(tmp1 + 2, tmp2 - 1);
-        jsonString = jsonString.substring(tmp2 + 1);
-        tmp1 = jsonString.indexOf(":");
-        tmp2 = jsonString.indexOf(",");
-        String personLastName = jsonString.substring(tmp1 + 2, tmp2 - 1);
-        jsonString = jsonString.substring(tmp2 + 1);
-        tmp1 = jsonString.indexOf(":");
-        tmp2 = jsonString.indexOf(",");
-        int moneyCount = Integer.parseInt(jsonString.substring(tmp1 + 2, tmp2 - 1));
-        jsonString = jsonString.substring(tmp2 + 1);
-        //needs fixing,
-        //{name , pets:[]}, {name, pets:[]}
-        //with this thins we arer going to have some problems,
-        tmp1 = jsonString.indexOf("[");
-        tmp2 = jsonString.indexOf("]");
-        //when have jsonString that looks like something this [{...}, {...}]}
-        //we are able to implement desirialisation for the json string of pets and get the array of pets
-        DesOfPet desOfPet = new DesOfPet();
-        //jsonString.substring(tmp1, tmp2 + 1) == [{...}, {...}], then [ ] will be deleted
-        ArrayList<Pet> pets = desOfPet.FromJsonToList(jsonString.substring(tmp1, tmp2 + 1));
-        Person person = new Person(personName, personLastName, moneyCount);
-        for (Pet pet : pets) {
-            person.assignPet(pet);
-        }
-        return person;
+        int index1 = jsonStringOfPerson.indexOf(":");
+        int index2 = jsonStringOfPerson.indexOf(",");
+        String personName = jsonStringOfPerson.substring(index1 + 2, index2 - 1);
+        jsonStringOfPerson = jsonStringOfPerson.substring(index2 + 1);
+        index1 = jsonStringOfPerson.indexOf(":");
+        index2 = jsonStringOfPerson.indexOf(",");
+        String personLastName = jsonStringOfPerson.substring(index1 + 2, index2 - 1);
+        jsonStringOfPerson = jsonStringOfPerson.substring(index2 + 1);
+        index1 = jsonStringOfPerson.indexOf(":");
+        index2 = jsonStringOfPerson.indexOf(",");
+        int moneyCount = Integer.parseInt(jsonStringOfPerson.substring(index1 + 2, index2 - 1));
+        jsonStringOfPerson = jsonStringOfPerson.substring(index2 + 1);
+        index1 = jsonStringOfPerson.indexOf("[");
+        index2 = jsonStringOfPerson.indexOf("]");
+        PetDeserializer petDeserializer = new PetDeserializer();
+        ArrayList<Pet> personsPets = petDeserializer.FromJsonToList(jsonStringOfPerson.substring(index1, index2 + 1));
+        return new Person.Builder().withPersonName(personName).withPersonLastName(personLastName).withMoneyCount(moneyCount).withPets(personsPets).build();
     }
 
-
-//    "{{\"personName\":\"Vlad\", \"personLastName\":\"Egorov\", \"moneyCount\":\"123\", [{\"petName\":\"bob\", \"petType\":\"Cat\"}, {\"petName\":\"bob\", \"petType\":\"Dog\"}]}, " +
-//            "{\"personName\":\"Andrey\", \"personLastName\":\"Antonov\", \"moneyCount\":\"600\", [{\"petName\":\"bob\", \"petType\":\"Cat\"}]}}";
-    public ArrayList<Person> FromJsonToList(String jsonString) {
-        if (jsonString.isEmpty()) {
+    public ArrayList<Person> FromJsonToList(String jsonStrinOfPeople) {
+        if (jsonStrinOfPeople.isEmpty()) {
             return null;
         }
         ArrayList<Person> people = new ArrayList<>();
-        jsonString = jsonString.substring(1, jsonString.length() - 1);
-        while (!jsonString.isEmpty()) {
-            //we need the closal } of one person, but we know that before } there is ]
-            int goal = jsonString.indexOf("]") + 2;
-            //goal is not included so we add two
-            people.add(FromJsonToObj(jsonString.substring(0 , goal)));
-            if (goal == jsonString.length()) {
-                jsonString = "";
+        jsonStrinOfPeople = jsonStrinOfPeople.substring(1, jsonStrinOfPeople.length() - 1);
+        while (!jsonStrinOfPeople.isEmpty()) {
+            int goal = jsonStrinOfPeople.indexOf("]") + 2;
+            people.add(FromJsonToObj(jsonStrinOfPeople.substring(0 , goal)));
+            if (goal == jsonStrinOfPeople.length()) {
+                jsonStrinOfPeople = "";
             }
             else {
-                jsonString = jsonString.substring(goal + 3);
-                //skip coma if we have several people
+                jsonStrinOfPeople = jsonStrinOfPeople.substring(goal + 3);
             }
         }
         return people;
