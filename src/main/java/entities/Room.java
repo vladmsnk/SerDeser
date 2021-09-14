@@ -3,22 +3,15 @@ package entities;
 import java.util.ArrayList;
 
 public class Room {
-    public Room(int roomNumber) {
+    private final int roomNumber;
+    private final ArrayList<Person> residents;
+
+    public Room(int roomNumber, ArrayList<Person> residents) {
         this.roomNumber = roomNumber;
-        this.peopleCount = 0;
+        this.residents = residents;
     }
-
-    private int roomNumber;
-    private int peopleCount;
-    private ArrayList<Person> residents = new ArrayList<>();
-
-    public void assignResident(Person person) {
-        this.peopleCount++;
-        this.residents.add(person);
-    }
-
-    public String getPeopleCount() {
-        return String.valueOf(peopleCount);
+    public int getPeopleCount() {
+        return residents.size();
     }
 
     public String getRoomNumber() {
@@ -29,4 +22,23 @@ public class Room {
         return new ArrayList<>(residents);
     }
 
+    public static class Builder {
+        private int roomNumber;
+        private ArrayList<Person> residents;
+
+
+        public Builder withRoomNumber(int roomNumber) {
+            this.roomNumber = roomNumber;
+            return this;
+        }
+
+        public Builder withResidents(ArrayList<Person> residents) {
+            this.residents = residents;
+            return this;
+        }
+
+        public Room build() {
+            return new Room(roomNumber, residents);
+        }
+    }
 }
