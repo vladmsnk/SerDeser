@@ -8,7 +8,7 @@ public class Person {
     private final String personName;
     private final String personLastName;
     private final int moneyCount;
-    private ArrayList<Pet> personsPet = new ArrayList<Pet>();
+    private final ArrayList<Pet> personsPet;
 
     public Person(String personName, String personLastName, int moneyCount, ArrayList<Pet> personsPet) {
         this.personName = personName;
@@ -16,6 +16,7 @@ public class Person {
         this.personsPet = personsPet;
         this.moneyCount = moneyCount;
     }
+
     public String getPersonName() {
         return personName;
     }
