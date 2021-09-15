@@ -1,15 +1,15 @@
 package inputoutput;
 
-
-import builders.ConstructStreetDirector;
 import entities.Street;
 
+import java.io.IOException;
 import java.util.Scanner;
 
-public class InputStreet {
+public class RunApp {
     private Street street;
-
-    public void run() {
+    private String inputFileName;
+    private String outputFileName;
+    public void run() throws IOException {
         System.out.println("Choose option");
         System.out.println("1. Standard input");
         System.out.println("2. Input from file");
@@ -22,8 +22,10 @@ public class InputStreet {
                 break;
             }
             else if (option.equals("Input from file") || option.equals("2")) {
-                street = consoleIO.constructStreetFromFile();
-                break;
+                System.out.println("Input file Name");
+                inputFileName = scanner.next();
+                InputFromFile inputFromFile = new InputFromFile(inputFileName);
+                street = inputFromFile.parseFile();
             }
             else {
                 System.out.println("Wrong! Choose option again");
@@ -33,8 +35,18 @@ public class InputStreet {
         System.out.println("1. Output to console");
         System.out.println("2. Output to file");
         while (true) {
-            OutputStreet outputStreet = new OutputStreet();
-
+            option = scanner.next();
+            if (option.equals("Output to console") || option.equals("1")) {
+                consoleIO.printStreetToConsole(street);
+            }
+            else if (option.equals("Output to file") || option.equals("2")) {
+                System.out.println("Input file Name");
+                outputFileName = scanner.next();
+                OutputToFIle outputToFIle = new OutputToFIle(outputFileName, street);
+            }
+            else {
+                System.out.println("Wrong! Choose option again");
+            }
         }
 
     }

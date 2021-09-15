@@ -12,6 +12,7 @@ public class HomeDeserializer implements Deserializer<Home> {
         if (jsonStringOfHome == null) {
             return null;
         }
+        jsonStringOfHome = jsonStringOfHome.replaceAll("\\s+", "");
         int index1 = jsonStringOfHome.indexOf(":") + 2;
         int index2 = jsonStringOfHome.indexOf(",") - 1;
         int homeNumber = Integer.parseInt(jsonStringOfHome.substring(index1, index2));
@@ -21,7 +22,7 @@ public class HomeDeserializer implements Deserializer<Home> {
             index2 = jsonStringOfHome.length() - 1;
         }
         else {
-            index2 = jsonStringOfHome.indexOf("homeNumber") - 5;
+            index2 = jsonStringOfHome.indexOf("homeNumber") - 4;
         }
         RoomDeserializer roomDeserializer = new RoomDeserializer();
         ArrayList<Room> rooms = roomDeserializer.FromJsonToList(jsonStringOfHome.substring(index1, index2));
@@ -33,6 +34,7 @@ public class HomeDeserializer implements Deserializer<Home> {
         if (jsonStringOfHomes.isEmpty()) {
             return null;
         }
+        jsonStringOfHomes = jsonStringOfHomes.replaceAll("\\s+", "");
         ArrayList<Home> homes = new ArrayList<>();
         jsonStringOfHomes = jsonStringOfHomes.substring(1, jsonStringOfHomes.length() - 1);
         while (!jsonStringOfHomes.isEmpty()) {
@@ -42,7 +44,7 @@ public class HomeDeserializer implements Deserializer<Home> {
             }
             else {
                 int doubleDotIndex = jsonStringOfHomes.indexOf(":");
-                int indexOfHomeNumber = jsonStringOfHomes.indexOf("homeNumber",doubleDotIndex) - 4;
+                int indexOfHomeNumber = jsonStringOfHomes.indexOf("homeNumber",doubleDotIndex) - 3;
                 homes.add(FromJsonToObj(jsonStringOfHomes.substring(0, indexOfHomeNumber)));
                 jsonStringOfHomes = jsonStringOfHomes.substring(indexOfHomeNumber + 3);
             }

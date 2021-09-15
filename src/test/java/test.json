@@ -1,0 +1,45 @@
+{
+  "streetName": "Komsomolskaya",
+  "homes": [
+    {
+      "homeNumber": "43",
+      "rooms": [
+        {
+          "roomNumber": "432",
+          "people": [
+            {
+              "personName": "Vlad",
+              "personLastName": "Moiseenkov",
+              "moneyCount": "2342",
+              "pets": [
+                {
+                  "petName": "murka",
+                  "animalType": "CAT"
+                },
+                {
+                  "petName": "murka1",
+                  "animalType": "DOG"
+                }
+              ]
+            },
+            {
+              "personName": "Vl2ad",
+              "personLastName": "Moiseenkov",
+              "moneyCount": "43",
+              "pets": [
+                {
+                  "petName": "murkar",
+                  "animalType": "CAT"
+                },
+                {
+                  "petName": "murka1",
+                  "animalType": "DOG"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -24,8 +24,6 @@ public class ConsoleIO {
             decision = scanner.next();
         }
     }
-
-
     public Street constructStreetFromConsole() {
         System.out.println("Input Street Name");
         String streetName = scanner.nextLine();
@@ -116,7 +114,7 @@ public class ConsoleIO {
             for (Room room : home.getRooms()) {
                 System.out.println(" Room :" + room.getRoomNumber());
                 for (Person person : room.getResidents()) {
-                    System.out.println("  Resident: " + person.getPersonName() + " " + person.getPersonName());
+                    System.out.println("  Resident: " + person.getPersonName() + " " + person.getPersonLastName());
                     System.out.println("  Possesion: " + person.getMoneyCount());
                     for (Pet pet : person.getPersonsPet()) {
                         System.out.println("   Pets");

@@ -20,6 +20,7 @@ public class Person {
     public String getPersonName() {
         return personName;
     }
+
     public String getPersonLastName() {
 
         return personLastName;
@@ -31,6 +32,7 @@ public class Person {
     public String getMoneyCount() {
         return String.valueOf(moneyCount);
     }
+
     public  ArrayList<Pet> getPersonsPet() {
         return new ArrayList<>(personsPet);
     }
