@@ -10,6 +10,7 @@ public class PersonDeserializer implements Deserializer<Person> {
         if (jsonStringOfPerson.isEmpty()) {
             return null;
         }
+        jsonStringOfPerson = jsonStringOfPerson.replaceAll("\\s+", "");
         int index1 = jsonStringOfPerson.indexOf(":");
         int index2 = jsonStringOfPerson.indexOf(",");
         String personName = jsonStringOfPerson.substring(index1 + 2, index2 - 1);
@@ -29,20 +30,21 @@ public class PersonDeserializer implements Deserializer<Person> {
         return new Person.Builder().withPersonName(personName).withPersonLastName(personLastName).withMoneyCount(moneyCount).withPets(personsPets).build();
     }
 
-    public ArrayList<Person> FromJsonToList(String jsonStrinOfPeople) {
-        if (jsonStrinOfPeople.isEmpty()) {
+    public ArrayList<Person> FromJsonToList(String jsonStringOfPeople) {
+        if (jsonStringOfPeople.isEmpty()) {
             return null;
         }
+        jsonStringOfPeople = jsonStringOfPeople.replaceAll("\\s+", "");
         ArrayList<Person> people = new ArrayList<>();
-        jsonStrinOfPeople = jsonStrinOfPeople.substring(1, jsonStrinOfPeople.length() - 1);
-        while (!jsonStrinOfPeople.isEmpty()) {
-            int goal = jsonStrinOfPeople.indexOf("]") + 2;
-            people.add(FromJsonToObj(jsonStrinOfPeople.substring(0 , goal)));
-            if (goal == jsonStrinOfPeople.length()) {
-                jsonStrinOfPeople = "";
+        jsonStringOfPeople = jsonStringOfPeople.substring(1, jsonStringOfPeople.length() - 1);
+        while (!jsonStringOfPeople.isEmpty()) {
+            int goal = jsonStringOfPeople.indexOf("]") + 2;
+            people.add(FromJsonToObj(jsonStringOfPeople.substring(0 , goal)));
+            if (goal == jsonStringOfPeople.length()) {
+                jsonStringOfPeople = "";
             }
             else {
-                jsonStrinOfPeople = jsonStrinOfPeople.substring(goal + 3);
+                jsonStringOfPeople = jsonStringOfPeople.substring(goal + 3);
             }
         }
         return people;
