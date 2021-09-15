@@ -11,8 +11,8 @@ public class PetSerializer implements Serializer<Pet> {
             throw new NullPointerException("Pet object does not exist!");
         }
         return "{" +
-                "\"petName\":" + '"' + pet.getPetName() + '"' +
-                ", \"animalType\":" + '"' + pet.getAnimalType() + '"' +
+                "\"petName\": " + '"' + pet.getPetName() + '"' +
+                ", \"animalType\": " + '"' + pet.getAnimalType() + '"' +
                 "}";
     }
 
@@ -20,16 +20,14 @@ public class PetSerializer implements Serializer<Pet> {
         if (listOfPets == null) {
             return "";
         }
-        String jsonStringOfPets = (listOfPets.size() > 1) ? "{" : "";
+        String jsonStringOfPets = (listOfPets.size() > 1) ? "[" : "";
         for (Pet pet : listOfPets) {
-            jsonStringOfPets = jsonStringOfPets.concat("{" +
-                    "\"petName\":" + '"' + pet.getPetName() + '"' +
-                    ", \"petType\":" + '"' + pet.getAnimalType() + '"' +
-                    "}, ");
+            jsonStringOfPets = jsonStringOfPets.concat(objToJson(pet));
+            jsonStringOfPets += ", ";
         }
         jsonStringOfPets = jsonStringOfPets.substring(0, jsonStringOfPets.length() - 2);
         if (listOfPets.size() > 1) {
-            jsonStringOfPets += "}";
+            jsonStringOfPets += "]";
         }
         return  jsonStringOfPets;
     }
