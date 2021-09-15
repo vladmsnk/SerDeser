@@ -5,7 +5,6 @@ import entities.Room;
 import java.util.ArrayList;
 import tools.Tools;
 
-
 public class RoomDeserializer implements Deserializer<Room> {
 
 
@@ -13,6 +12,7 @@ public class RoomDeserializer implements Deserializer<Room> {
         if (jsonStringOfRoom == null) {
             return null;
         }
+        jsonStringOfRoom = jsonStringOfRoom.replaceAll("\\s+", "");
         int index1 = jsonStringOfRoom.indexOf(":") + 2;
         int index2 = jsonStringOfRoom.indexOf(",") - 1;
         int roomNumber = Integer.parseInt(jsonStringOfRoom.substring(index1, index2));
@@ -22,7 +22,7 @@ public class RoomDeserializer implements Deserializer<Room> {
             index2 = jsonStringOfRoom.length() - 1;
         }
         else {
-            index2 = jsonStringOfRoom.indexOf("roomNumber") - 5;
+            index2 = jsonStringOfRoom.indexOf("roomNumber") - 4;
         }
         PersonDeserializer personDeserializer = new PersonDeserializer();
         ArrayList<Person> residents = personDeserializer.FromJsonToList(jsonStringOfRoom.substring(index1, index2));
@@ -30,6 +30,7 @@ public class RoomDeserializer implements Deserializer<Room> {
     }
 
     public ArrayList<Room> FromJsonToList(String jsonStringOfRooms) {
+        jsonStringOfRooms = jsonStringOfRooms.replaceAll("\\s+", "");
         if (jsonStringOfRooms.isEmpty()) {
             return null;
         }
@@ -42,9 +43,9 @@ public class RoomDeserializer implements Deserializer<Room> {
             }
             else {
                 int doubleDotIndex = jsonStringOfRooms.indexOf(":");
-                int roomNumberIndex = jsonStringOfRooms.indexOf("roomNumber",doubleDotIndex) - 4;
+                int roomNumberIndex = jsonStringOfRooms.indexOf("roomNumber",doubleDotIndex) - 3;
                 rooms.add(FromJsonToObj(jsonStringOfRooms.substring(0, roomNumberIndex)));
-                jsonStringOfRooms = jsonStringOfRooms.substring(roomNumberIndex + 3);
+                jsonStringOfRooms = jsonStringOfRooms.substring(roomNumberIndex + 2);
             }
         }
         return rooms;
