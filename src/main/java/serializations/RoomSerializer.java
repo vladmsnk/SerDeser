@@ -5,7 +5,7 @@ import entities.Room;
 
 import java.util.ArrayList;
 
-public class RoomSerializer implements Serializable<Room>{
+public class RoomSerializer implements Serializer<Room> {
 
         public String objToJson(Room room) {
             if (room == null) {
@@ -14,8 +14,8 @@ public class RoomSerializer implements Serializable<Room>{
             PersonSerializer personSerializer = new PersonSerializer();
             String people = "[" + personSerializer.ListOfObjToJson(room.getResidents()) + "]";
             return "{" +
-                    "\"roomNumber\":" + '"' + room.getRoomNumber() + '"' +
-                    ", \"people\":" + people +
+                    "\"roomNumber\": " + '"' + room.getRoomNumber() + '"' +
+                    ", \"people\": " + people +
                     "}";
         }
 
@@ -23,14 +23,14 @@ public class RoomSerializer implements Serializable<Room>{
             if (listOfRooms.size() == 0) {
                 return "";
             }
-            String jsonStringOfRooms = (listOfRooms.size() > 1) ? "{" : "";
+            String jsonStringOfRooms = (listOfRooms.size() > 1) ? "[" : "";
             for (Room room : listOfRooms) {
                 jsonStringOfRooms = jsonStringOfRooms.concat(objToJson(room));
                 jsonStringOfRooms += ", ";
             }
             jsonStringOfRooms = jsonStringOfRooms.substring(0, jsonStringOfRooms.length() - 2);
             if (listOfRooms.size() > 1) {
-                jsonStringOfRooms += "}";
+                jsonStringOfRooms += "]";
             }
             return jsonStringOfRooms;
         }
