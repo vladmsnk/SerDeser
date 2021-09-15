@@ -26,6 +26,7 @@ public class RunApp {
                 inputFileName = scanner.next();
                 InputFromFile inputFromFile = new InputFromFile(inputFileName);
                 street = inputFromFile.parseFile();
+                break;
             }
             else {
                 System.out.println("Wrong! Choose option again");
@@ -38,11 +39,13 @@ public class RunApp {
             option = scanner.next();
             if (option.equals("Output to console") || option.equals("1")) {
                 consoleIO.printStreetToConsole(street);
+                break;
             }
             else if (option.equals("Output to file") || option.equals("2")) {
                 System.out.println("Input file Name");
                 outputFileName = scanner.next();
                 OutputToFIle outputToFIle = new OutputToFIle(outputFileName, street);
+                break;
             }
             else {
                 System.out.println("Wrong! Choose option again");
