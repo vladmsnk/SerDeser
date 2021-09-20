@@ -1,9 +1,9 @@
-package deserializations;
+package pr.miem.vlad.deserializations;
 
 import java.util.List;
 
 
 public interface Deserializer<T>{
-    T FromJsonToObj(String jsonString);
-    List<T> FromJsonToList(String jsonString);
+    T fromJsonToObj(String jsonString);
+    List<T> fromJsonToList(String jsonString);
 }
