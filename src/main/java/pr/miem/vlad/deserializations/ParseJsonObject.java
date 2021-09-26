@@ -260,10 +260,14 @@ public class ParseJsonObject {
                 if (Character.isSpaceChar(symbol)) {
                     state = 7;
                 } else if (symbol == '"') {
+                    mapOfJson.put(currentKey, currentValue);
                     state = 2;
                 } else {
                     throw new Error("unknown symbol at state 7!");
                 }
+                break;
+            case 26:
+                mapOfJson.put(currentKey, currentValue);
                 break;
         }
     }
