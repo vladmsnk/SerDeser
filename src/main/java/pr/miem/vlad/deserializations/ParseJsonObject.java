@@ -31,8 +31,13 @@ public class ParseJsonObject {
         return (Character.isDigit(symbol) || Character.isLetter(symbol));
     }
 
+    public void jsonParse() {
+        for (int i = 0; i < jsonString.length(); i++) {
+            transmit(jsonString.charAt(i), i);
+        }
+    }
 
-    public void transmit(char symbol, int currentIndex) {
+    private void transmit(char symbol, int currentIndex) {
         String currentKey = "";
         String currentValue = "";
         switch (state) {
