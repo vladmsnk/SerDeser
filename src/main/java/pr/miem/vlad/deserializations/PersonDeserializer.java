@@ -1,52 +1,22 @@
-package deserializations;
+package pr.miem.vlad.deserializations;
 
-import entities.Person;
-import entities.Pet;
+import pr.miem.vlad.entities.Person;
+import pr.miem.vlad.entities.Pet;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class PersonDeserializer implements Deserializer<Person> {
-    public Person FromJsonToObj(String jsonStringOfPerson) {
-        if (jsonStringOfPerson.isEmpty()) {
-            return null;
+    public Person fromJsonToObj(String jsonStringOfPerson) {
+        ParseJsonObject parseJsonObject = new ParseJsonObject(jsonStringOfPerson);
+        Map<String, String> mapOfJson = parseJsonObject.getMapOfJson();
+        for (String value : mapOfJson.values()) {
+            System.out.println(value);
         }
-        jsonStringOfPerson = jsonStringOfPerson.replaceAll("\\s+", "");
-        int index1 = jsonStringOfPerson.indexOf(":");
-        int index2 = jsonStringOfPerson.indexOf(",");
-        String personName = jsonStringOfPerson.substring(index1 + 2, index2 - 1);
-        jsonStringOfPerson = jsonStringOfPerson.substring(index2 + 1);
-        index1 = jsonStringOfPerson.indexOf(":");
-        index2 = jsonStringOfPerson.indexOf(",");
-        String personLastName = jsonStringOfPerson.substring(index1 + 2, index2 - 1);
-        jsonStringOfPerson = jsonStringOfPerson.substring(index2 + 1);
-        index1 = jsonStringOfPerson.indexOf(":");
-        index2 = jsonStringOfPerson.indexOf(",");
-        int moneyCount = Integer.parseInt(jsonStringOfPerson.substring(index1 + 2, index2 - 1));
-        jsonStringOfPerson = jsonStringOfPerson.substring(index2 + 1);
-        index1 = jsonStringOfPerson.indexOf("[");
-        index2 = jsonStringOfPerson.indexOf("]");
-        PetDeserializer petDeserializer = new PetDeserializer();
-        ArrayList<Pet> personsPets = petDeserializer.FromJsonToList(jsonStringOfPerson.substring(index1, index2 + 1));
-        return new Person.Builder().withPersonName(personName).withPersonLastName(personLastName).withMoneyCount(moneyCount).withPets(personsPets).build();
+        return null;
     }
 
-    public ArrayList<Person> FromJsonToList(String jsonStringOfPeople) {
-        if (jsonStringOfPeople.isEmpty()) {
-            return null;
-        }
-        jsonStringOfPeople = jsonStringOfPeople.replaceAll("\\s+", "");
-        ArrayList<Person> people = new ArrayList<>();
-        jsonStringOfPeople = jsonStringOfPeople.substring(1, jsonStringOfPeople.length() - 1);
-        while (!jsonStringOfPeople.isEmpty()) {
-            int goal = jsonStringOfPeople.indexOf("]") + 2;
-            people.add(FromJsonToObj(jsonStringOfPeople.substring(0 , goal)));
-            if (goal == jsonStringOfPeople.length()) {
-                jsonStringOfPeople = "";
-            }
-            else {
-                jsonStringOfPeople = jsonStringOfPeople.substring(goal + 3);
-            }
-        }
-        return people;
+    public ArrayList<Person> fromJsonToList(String jsonStringOfPeople) {
+        return new ArrayList<Person>();
     }
 }
