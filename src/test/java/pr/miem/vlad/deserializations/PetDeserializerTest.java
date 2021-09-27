@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class PetDeserializerTest {
-    private final PetDeserializer petDeserializer = new PetDeserializer();
 
     @Test
     public void shouldParsePet() {
@@ -24,9 +23,14 @@ public class PetDeserializerTest {
         assertTrue(parsedPet.containsKey("petName"));
         assertTrue(parsedPet.containsKey("animalType"));
         assertEquals(expectedPet, parsedPet);
+    }
+    @Test
+    public void shouldCreatePetObject() {
+        String jsonPet = "{\"petName\":\"Bill\", \"animalType\":\"DOG\"}";
+        PetDeserializer petDeserializer = new PetDeserializer();
         Pet pet = petDeserializer.fromJsonToObj(jsonPet);
-        assertEquals(pet.getPetName(), "Bob");
-        assertEquals(pet.getAnimalType(), "CAT");
+        assertEquals(pet.getPetName(), "Bill");
+        assertEquals(pet.getAnimalType(), "DOG");
     }
 
 
