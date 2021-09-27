@@ -19,21 +19,20 @@ public class ParseJsonObject {
         this.firstIndexOfStr = 0;
     }
 
-
     private void initializeLastIndexOfValue(int currentIndex) {
-        if (state != 6) {
-            lastIndexOfStr = currentIndex;
-        }
+        lastIndexOfStr = currentIndex;
     }
 
     private boolean isSymbol(char symbol) {
-        return (Character.isDigit(symbol) || Character.isLetter(symbol) || Character.isSpaceChar(symbol));
+        return (Character.isDigit(symbol) || Character.isLetter(symbol) || Character.isSpaceChar(symbol)
+                || symbol == '"' || symbol == ':' || symbol == ',' || symbol == '{' || symbol == '}');
     }
+
     private boolean isWord(char symbol) {
         return (Character.isDigit(symbol) || Character.isLetter(symbol));
     }
 
-    public void jsonParse() {
+    private void jsonParse() {
         for (int i = 0; i < jsonString.length(); i++) {
             transmit(jsonString.charAt(i), i);
         }
@@ -42,6 +41,7 @@ public class ParseJsonObject {
         }
     }
     public Map<String, String> getMapOfJson() {
+        jsonParse();
         return new HashMap<>(mapOfJson);
     }
 
@@ -120,7 +120,11 @@ public class ParseJsonObject {
                 } else  {
                     throw new Error("unknown symbol at state 6!");
                 }
-                initializeLastIndexOfValue(currentIndex);
+                if (state == 7 || state == 26) {
+                    initializeLastIndexOfValue(currentIndex + 1);
+                } else {
+                    initializeLastIndexOfValue(currentIndex);
+                }
                 break;
             case 8:
                 if (isSymbol(symbol)) {
