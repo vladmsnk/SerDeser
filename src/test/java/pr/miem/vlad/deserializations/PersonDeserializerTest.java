@@ -45,4 +45,25 @@ public class PersonDeserializerTest {
         assertEquals(pets.get(1).getPetName(), "Bob1");
         assertEquals(pets.get(1).getAnimalType(), "DOG");
     }
+
+    @Test
+    public void shouldCreateArrayOfPersonObjects() {
+        String jsonPeople = "[{\"personName\": \"Andrey\", \"personLastName\": \"Ivanov\", \"moneyCount\": 1000, \"pets\": [{\"petName\": \"Bob\", \"animalType\": \"BIRD\"}, {\"petName\": \"Bob1\", \"animalType\": \"DOG\"}]}, {\"personName\": \"Vova\", \"personLastName\": \"Gerasimov\", \"moneyCount\": 213, \"pets\": [{\"petName\": \"Tom\", \"animalType\": \"CAT\"}, {\"petName\": \"Tom1\", \"animalType\": \"DOG\"}]}]";
+        ArrayList<Person> people = personDeserializer.fromJsonToList(jsonPeople);
+        assertEquals(people.size(), 2);
+        assertEquals(people.get(0).getPersonName(), "Andrey");
+        assertEquals(people.get(0).getPersonLastName(), "Ivanov");
+        assertEquals(people.get(1).getPersonName(), "Vova");
+        assertEquals(people.get(1).getPersonLastName(), "Gerasimov");
+        assertEquals(Integer.parseInt(people.get(0).getMoneyCount()), 1000);
+        assertEquals(Integer.parseInt(people.get(1).getMoneyCount()), 213);
+        assertEquals(people.get(0).getPersonsPet().get(0).getPetName(), "Bob");
+        assertEquals(people.get(0).getPersonsPet().get(0).getAnimalType(), "BIRD");
+        assertEquals(people.get(0).getPersonsPet().get(1).getPetName(), "Bob1");
+        assertEquals(people.get(0).getPersonsPet().get(1).getAnimalType(), "DOG");
+        assertEquals(people.get(1).getPersonsPet().get(0).getPetName(), "Tom");
+        assertEquals(people.get(1).getPersonsPet().get(0).getAnimalType(), "CAT");
+        assertEquals(people.get(1).getPersonsPet().get(1).getPetName(), "Tom1");
+        assertEquals(people.get(1).getPersonsPet().get(1).getAnimalType(), "DOG");
+    }
 }
