@@ -2,6 +2,7 @@ package pr.miem.vlad.deserializations;
 
 import org.junit.jupiter.api.Test;
 import pr.miem.vlad.entities.Pet;
+import pr.miem.vlad.restrictions.AnimalType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +32,12 @@ public class PetDeserializerTest {
     @Test
     public void shouldCreatePetObject() {
         String jsonPet = "{\"petName\":\"Bill\", \"animalType\":\"DOG\"}";
-        Pet pet = petDeserializer.fromJsonToObj(jsonPet);
-        assertEquals(pet.getPetName(), "Bill");
-        assertEquals(pet.getAnimalType(), "DOG");
+        Pet parsedPet = petDeserializer.fromJsonToObj(jsonPet);
+        Pet expectedPet = new Pet.Builder()
+                .withPetName("Bill")
+                .withAnimalType(AnimalType.valueOf("DOG"))
+                .build();
+        assertEquals(expectedPet, parsedPet);
     }
 
     @Test
