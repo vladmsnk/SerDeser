@@ -27,10 +27,7 @@ public class PetDeserializerTest {
         assertTrue(parsedPet.containsKey("animalType"));
         assertEquals(expectedPet, parsedPet);
     }
-    public void shouldParsePets() {
-        String jsonPets = "[{\"petName\": \"Bob\", \"animalType\": \"DOG\"}, {\"petName\": \"Bill\", \"animalType\": \"CAT\"}, {\"petName\": \"Tom\", \"animalType\": \"BIRD\"}]";
 
-    }
     @Test
     public void shouldCreatePetObject() {
         String jsonPet = "{\"petName\":\"Bill\", \"animalType\":\"DOG\"}";
