@@ -14,7 +14,7 @@ public class RoomDeserializer implements Deserializer<Room> {
         ParseJsonObject parseJsonObject = new ParseJsonObject(jsonStringOfRoom);
         Map<String, String> mapOfJson = parseJsonObject.getMapOfJson();
         PersonDeserializer personDeserializer = new PersonDeserializer();
-        ArrayList<Person> people = personDeserializer.fromJsonToList(mapOfJson.get("people"));
+        ArrayList<Person> people = personDeserializer.fromJsonToList(mapOfJson.get("residents"));
         return new Room.Builder()
                 .withRoomNumber(Integer.parseInt(mapOfJson.get("roomNumber")))
                 .withResidents(people)
@@ -22,6 +22,7 @@ public class RoomDeserializer implements Deserializer<Room> {
     }
 
     public ArrayList<Room> fromJsonToList(String jsonStringOfRooms) {
+
         ArrayList<String> arrayOfJsonObjects = Tools.splitJsonString(jsonStringOfRooms);
         ArrayList<Room> rooms = new ArrayList<>();
         for (String jsonObject : arrayOfJsonObjects) {
