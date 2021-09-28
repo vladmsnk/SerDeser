@@ -1,12 +1,26 @@
-package entities;
+package pr.miem.vlad.entities;
 
-import restrictions.Animals;
+import pr.miem.vlad.restrictions.AnimalType;
 
 public class Pet {
     private final String petName;
-    private final Animals animalType;
+    private final AnimalType animalType;
 
-    public Pet(String petName, Animals animalType) {
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Pet)) {
+            return false;
+        }
+        Pet other = (Pet) o;
+        boolean petNameEquals = this.petName.equals(other.petName);
+        boolean animalTypeEquals = (this.animalType == other.animalType);
+        return (petNameEquals && animalTypeEquals);
+    }
+
+    public Pet(String petName, AnimalType animalType) {
         this.petName = petName;
         this.animalType = animalType;
     }
@@ -21,14 +35,14 @@ public class Pet {
 
     public static class Builder {
         private String petName;
-        private Animals animalType;
+        private AnimalType animalType;
 
         public Builder withPetName(String petName) {
             this.petName = petName;
             return this;
         }
 
-        public Builder withAnimalType(Animals animalType) {
+        public Builder withAnimalType(AnimalType animalType) {
             this.animalType = animalType;
             return this;
         }
@@ -36,6 +50,6 @@ public class Pet {
         public Pet build() {
             return new Pet(petName, animalType);
         }
-    }
 
+    }
 }
