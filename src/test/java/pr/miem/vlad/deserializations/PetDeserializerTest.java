@@ -17,19 +17,6 @@ public class PetDeserializerTest {
     private final PetDeserializer petDeserializer = new PetDeserializer();
 
     @Test
-    public void shouldParsePet() {
-        String jsonPet = "{\"petName\":\"Bob\", \"animalType\":\"CAT\"}";
-        ParseJsonObject parseJsonObject = new ParseJsonObject(jsonPet);
-        Map<String, String> expectedPet = new HashMap<>();
-        Map<String, String> parsedPet = parseJsonObject.getMapOfJson();
-        expectedPet.put("petName", "Bob");
-        expectedPet.put("animalType", "CAT");
-        assertTrue(parsedPet.containsKey("petName"));
-        assertTrue(parsedPet.containsKey("animalType"));
-        assertEquals(expectedPet, parsedPet);
-    }
-
-    @Test
     public void shouldCreatePetObject() {
         String jsonPet = "{\"petName\":\"Bill\", \"animalType\":\"DOG\"}";
         Pet parsedPet = petDeserializer.fromJsonToObj(jsonPet);
@@ -43,14 +30,16 @@ public class PetDeserializerTest {
     @Test
     public void shouldCreateArrayOfPetObjects() {
         String jsonPets = "[{\"petName\": \"Bob\", \"animalType\": \"DOG\"}, {\"petName\": \"Bill\", \"animalType\": \"CAT\"}, {\"petName\": \"Tom\", \"animalType\": \"BIRD\"}]";
-        ArrayList<Pet> pets = petDeserializer.fromJsonToList(jsonPets);
-        assertEquals(pets.size(), 3);
-        assertEquals(pets.get(0).getPetName(), "Bob");
-        assertEquals(pets.get(0).getAnimalType(), "DOG");
-        assertEquals(pets.get(1).getPetName(), "Bill");
-        assertEquals(pets.get(1).getAnimalType(), "CAT");
-        assertEquals(pets.get(2).getPetName(), "Tom");
-        assertEquals(pets.get(2).getAnimalType(), "BIRD");
+        ArrayList<Pet> parsedPets = petDeserializer.fromJsonToList(jsonPets);
+        ArrayList<Pet> exptectedPets = new ArrayList<>();
+        Pet pet1 = new Pet.Builder().withPetName("Bob").withAnimalType(AnimalType.valueOf("DOG")).build();
+        Pet pet2 = new Pet.Builder().withPetName("Bill").withAnimalType(AnimalType.valueOf("CAT")).build();
+        exptectedPets.add(pet1);
+        exptectedPets.add(pet2);
+        for (int i = 0 ; i < exptectedPets.size(); i++) {
+            assertEquals(exptectedPets.get(i),parsedPets.get(i));
+        }
+
     }
 
 
