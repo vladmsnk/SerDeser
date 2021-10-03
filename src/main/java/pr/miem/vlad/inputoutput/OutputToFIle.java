@@ -1,8 +1,8 @@
-package inputoutput;
+package pr.miem.vlad.inputoutput;
 
-import serializations.StreetSerializer;
+import pr.miem.vlad.serializations.StreetSerializer;
 
-import entities.*;
+import pr.miem.vlad.entities.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

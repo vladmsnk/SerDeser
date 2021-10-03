@@ -1,4 +1,4 @@
-package serializations;
+package pr.miem.vlad.serializations;
 
 import java.util.ArrayList;
 

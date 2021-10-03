@@ -1,8 +1,8 @@
-package serializations;
+package pr.miem.vlad.serializations;
 
 
 import java.util.ArrayList;
-import entities.Pet;
+import pr.miem.vlad.entities.Pet;
 
 public class PetSerializer implements Serializer<Pet> {
 

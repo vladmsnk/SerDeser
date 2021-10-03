@@ -1,4 +1,4 @@
-package entities;
+package pr.miem.vlad.entities;
 
 
 import java.util.ArrayList;

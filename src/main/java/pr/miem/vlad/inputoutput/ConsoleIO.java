@@ -1,8 +1,8 @@
-package inputoutput;
+package pr.miem.vlad.inputoutput;
 
-import entities.*;
-import restrictions.Animals;
-import tools.Tools;
+import pr.miem.vlad.entities.*;
+import pr.miem.vlad.restrictions.AnimalType;
+import pr.miem.vlad.tools.Tools;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -71,7 +71,8 @@ public class ConsoleIO {
                                     System.out.println("Inappropriate animal!");
                                     animalType = scanner.next();
                                 }
-                                Animals animal = Animals.valueOf(animalType);
+
+                                AnimalType animal = AnimalType.valueOf(animalType);
                                 pets.add(new Pet.Builder().withPetName(petName).withAnimalType(animal).build());
                                 System.out.println("Do you want to add Pet?");
                                 chooseYesOrNO();

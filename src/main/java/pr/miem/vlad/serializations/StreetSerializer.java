@@ -1,7 +1,7 @@
-package serializations;
+package pr.miem.vlad.serializations;
 
 
-import entities.Street;
+import pr.miem.vlad.entities.Street;
 
 import java.util.ArrayList;
 

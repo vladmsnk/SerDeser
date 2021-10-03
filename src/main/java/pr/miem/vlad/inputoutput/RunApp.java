@@ -1,6 +1,6 @@
-package inputoutput;
+package pr.miem.vlad.inputoutput;
 
-import entities.Street;
+import pr.miem.vlad.entities.Street;
 
 import java.io.IOException;
 import java.util.Scanner;

@@ -1,7 +1,7 @@
-package serializations;
+package pr.miem.vlad.serializations;
 
 
-import entities.Home;
+import pr.miem.vlad.entities.Home;
 
 import java.util.ArrayList;
 

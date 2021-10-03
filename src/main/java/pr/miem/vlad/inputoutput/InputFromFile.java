@@ -1,8 +1,8 @@
-package inputoutput;
+package pr.miem.vlad.inputoutput;
 
-import deserializations.StreetDeserializer;
-import serializations.StreetSerializer;
-import entities.*;
+import pr.miem.vlad.deserializations.StreetDeserializer;
+import pr.miem.vlad.serializations.StreetSerializer;
+import pr.miem.vlad.entities.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +20,7 @@ public class InputFromFile {
     public Street parseFile() throws IOException {
         String data = "";
         data = new String(Files.readAllBytes(Paths.get(inputFileName)));
-        return streetDeserializer.FromJsonToObj(data);
+        return streetDeserializer.fromJsonToObj(data);
     }
 
 
