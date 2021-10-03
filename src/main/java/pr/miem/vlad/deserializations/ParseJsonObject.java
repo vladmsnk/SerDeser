@@ -12,6 +12,8 @@ public class ParseJsonObject {
     private int lastIndexOfStr;
     private String currentKey;
     private String currentValue;
+    private int openBracketCnt;
+    private int closeBracketCnt;
 
     public ParseJsonObject(String jsonString) {
         this.jsonString = jsonString;
@@ -97,6 +99,7 @@ public class ParseJsonObject {
                 } else if (symbol == '{') {
                     state = 8;
                 } else if (symbol == '[') {
+                    openBracketCnt++;
                     state = 11;
                 } else if (symbol == 't') {
                     state = 14;
@@ -164,8 +167,20 @@ public class ParseJsonObject {
                 if (isSymbol(symbol)) {
                     state = 12;
                 }
+                else if (symbol == '[') {
+                    openBracketCnt++;
+                    state = 12;
+                }
                 else if (symbol == ']') {
-                    state = 13;
+                    closeBracketCnt++;
+                    if (openBracketCnt == closeBracketCnt) {
+                        state = 13;
+                        openBracketCnt = 0;
+                        closeBracketCnt = 0;
+                    }
+                    else {
+                        state = 12;
+                    }
                 }
                 else {
                     throw new Error("unknown symbol at state 12!");
