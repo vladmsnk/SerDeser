@@ -29,16 +29,14 @@ public class PetDeserializerTest {
 
     @Test
     public void shouldCreateArrayOfPetObjects() {
-        String jsonPets = "[{\"petName\": \"Bob\", \"animalType\": \"DOG\"}, {\"petName\": \"Bill\", \"animalType\": \"CAT\"}, {\"petName\": \"Tom\", \"animalType\": \"BIRD\"}]";
+        String jsonPets = "[{\"petName\": \"Bob\", \"animalType\": \"DOG\"}, {\"petName\": \"Bill\", \"animalType\": \"CAT\"}]";
         ArrayList<Pet> parsedPets = petDeserializer.fromJsonToList(jsonPets);
-        ArrayList<Pet> exptectedPets = new ArrayList<>();
+        ArrayList<Pet> expectedPets = new ArrayList<>();
         Pet pet1 = new Pet.Builder().withPetName("Bob").withAnimalType(AnimalType.valueOf("DOG")).build();
         Pet pet2 = new Pet.Builder().withPetName("Bill").withAnimalType(AnimalType.valueOf("CAT")).build();
-        exptectedPets.add(pet1);
-        exptectedPets.add(pet2);
-        for (int i = 0 ; i < exptectedPets.size(); i++) {
-            assertEquals(exptectedPets.get(i),parsedPets.get(i));
-        }
+        expectedPets.add(pet1);
+        expectedPets.add(pet2);
+        assertEquals(parsedPets, expectedPets);
 
     }
 
