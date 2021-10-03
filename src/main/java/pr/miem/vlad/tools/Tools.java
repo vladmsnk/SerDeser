@@ -37,7 +37,9 @@ public class Tools {
         for (int i = 0; i <  jsonString.length(); i++) {
             if (jsonString.charAt(i) == '{') {
                 currentOpenBracketCount++;
-                beginIndex = i;
+                if (currentOpenBracketCount == 1) {
+                    beginIndex = i;
+                }
             }
             else if (jsonString.charAt(i) == '}') {
                 currentCloseBracketCount++;
