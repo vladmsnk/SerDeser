@@ -1,6 +1,7 @@
 package pr.miem.vlad.entities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Street {
 
@@ -10,6 +11,19 @@ public class Street {
     public Street(String streetName, ArrayList<Home> homes) {
         this.streetName = streetName;
         this.homes = homes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Street street = (Street) o;
+        return Objects.equals(streetName, street.streetName) && Objects.equals(homes, street.homes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(streetName, homes);
     }
 
     public String getStreetName() {

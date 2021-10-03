@@ -1,10 +1,24 @@
 package pr.miem.vlad.entities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Room {
     private final int roomNumber;
     private final ArrayList<Person> residents;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return roomNumber == room.roomNumber && Objects.equals(residents, room.residents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roomNumber, residents);
+    }
 
     public Room(int roomNumber, ArrayList<Person> residents) {
         this.roomNumber = roomNumber;

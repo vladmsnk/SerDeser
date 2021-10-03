@@ -3,6 +3,7 @@ package pr.miem.vlad.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Person {
     private final String personName;
@@ -15,6 +16,19 @@ public class Person {
         this.personLastName = personLastName;
         this.personsPet = personsPet;
         this.moneyCount = moneyCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return moneyCount == person.moneyCount && Objects.equals(personName, person.personName) && Objects.equals(personLastName, person.personLastName) && Objects.equals(personsPet, person.personsPet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personName, personLastName, moneyCount, personsPet);
     }
 
     public String getPersonName() {

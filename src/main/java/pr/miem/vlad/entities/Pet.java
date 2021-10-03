@@ -2,22 +2,24 @@ package pr.miem.vlad.entities;
 
 import pr.miem.vlad.restrictions.AnimalType;
 
+import java.util.Objects;
+
 public class Pet {
     private final String petName;
     private final AnimalType animalType;
 
+
     @Override
     public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof Pet)) {
-            return false;
-        }
-        Pet other = (Pet) o;
-        boolean petNameEquals = this.petName.equals(other.petName);
-        boolean animalTypeEquals = (this.animalType == other.animalType);
-        return (petNameEquals && animalTypeEquals);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return Objects.equals(petName, pet.petName) && animalType == pet.animalType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(petName, animalType);
     }
 
     public Pet(String petName, AnimalType animalType) {
