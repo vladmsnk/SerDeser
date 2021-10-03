@@ -1,9 +1,11 @@
 package pr.miem.vlad.deserializations;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pr.miem.vlad.entities.Person;
 import pr.miem.vlad.entities.Pet;
 import pr.miem.vlad.entities.Room;
+import pr.miem.vlad.restrictions.AnimalType;
 
 import java.util.ArrayList;
 
@@ -15,41 +17,135 @@ public class RoomDeserializerTest {
 
     @Test
     public void shouldCreateRoomObject() {
-        String jsonObject = "{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"moneyCount\": 123, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}]}]}";
-        Room room = roomDeserializer.fromJsonToObj(jsonObject);
-        assertEquals(Integer.parseInt(room.getRoomNumber()), 34);
-        ArrayList<Person> residents = room.getResidents();
-        assertEquals(residents.size(), 1);
-        assertEquals(residents.get(0).getPersonName(), "Bob");
-        assertEquals(residents.get(0).getPersonLastName(), "Ivanov");
-        assertEquals(Integer.parseInt(residents.get(0).getMoneyCount()), 123);
-        ArrayList<Pet> pets = residents.get(0).getPersonsPet();
-        assertEquals(pets.size(), 1);
-        assertEquals(pets.get(0).getPetName(), "Musya");
-        assertEquals(pets.get(0).getAnimalType(), "CAT");
+        String jsonObject = "{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"moneyCount\": 123, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor\", \"animalType\": \"DOG\"}]}, {\"personName\": \"Bob1\", \"personLastName\": \"Ivanov1\", \"moneyCount\": 1233, \"pets\": [{\"petName\": \"Musya1\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna1\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor1\", \"animalType\": \"DOG\"}]}]}";
+        Room parsedRoom = roomDeserializer.fromJsonToObj(jsonObject);
+        ArrayList<Pet> expectedPets1 = new ArrayList<>();
+        ArrayList<Person> expectedPeople = new ArrayList<>();
+
+        Pet pet = new Pet.Builder()
+                .withPetName("Musya")
+                .withAnimalType(AnimalType.valueOf("CAT"))
+                .build();
+
+        Pet pet1 = new Pet.Builder()
+                .withPetName("Anna")
+                .withAnimalType(AnimalType.valueOf("BIRD"))
+                .build();
+
+        Pet pet2 = new Pet.Builder()
+                .withPetName("Egor")
+                .withAnimalType(AnimalType.valueOf("DOG"))
+                .build();
+
+        expectedPets1.add(pet);
+        expectedPets1.add(pet1);
+        expectedPets1.add(pet2);
+
+        ArrayList<Pet> expectedPets2 = new ArrayList<>();
+
+        Pet pet01 = new Pet.Builder()
+                .withPetName("Musya1")
+                .withAnimalType(AnimalType.valueOf("CAT"))
+                .build();
+
+        Pet pet11 = new Pet.Builder()
+                .withPetName("Anna1")
+                .withAnimalType(AnimalType.valueOf("BIRD"))
+                .build();
+
+        Pet pet21 = new Pet.Builder()
+                .withPetName("Egor1")
+                .withAnimalType(AnimalType.valueOf("DOG"))
+                .build();
+
+        expectedPets2.add(pet01);
+        expectedPets2.add(pet11);
+        expectedPets2.add(pet21);
+
+
+        Person person1 = new Person.Builder()
+                .withPersonName("Bob")
+                .withPersonLastName("Ivanov")
+                .withMoneyCount(123)
+                .withPets(expectedPets1)
+                .build();
+
+        Person person2 = new Person.Builder()
+                .withPersonName("Bob1")
+                .withPersonLastName("Ivanov1")
+                .withMoneyCount(1233)
+                .withPets(expectedPets2)
+                .build();
+
+        expectedPeople.add(person1);
+        expectedPeople.add(person2);
+
+        Room expectedRoom = new Room.Builder()
+                .withRoomNumber(34)
+                .withResidents(expectedPeople)
+                .build();
+
+        assertEquals(expectedRoom, parsedRoom);
     }
 
     @Test
     public void shouldCreateArrayOfRoomObjects() {
         String jsonObject = "{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"moneyCount\": 12323, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}]}]}," +
                 " {\"roomNumber\": 35, \"residents\": [{\"personName\": \"Anna\", \"personLastName\": \"Ivanova\", \"moneyCount\": 123, \"pets\": [{\"petName\": \"Tom\", \"animalType\": \"DOG\"}]}]}";
-        ArrayList<Room> rooms = roomDeserializer.fromJsonToList(jsonObject);
-        assertEquals(Integer.parseInt(rooms.get(0).getRoomNumber()), 34);
-        assertEquals(Integer.parseInt(rooms.get(1).getRoomNumber()), 35);
-        ArrayList<Person> residents1 = rooms.get(0).getResidents();
-        ArrayList<Person> residents2 = rooms.get(1).getResidents();
-        assertEquals(residents1.get(0).getPersonName(),"Bob");
-        assertEquals(residents2.get(0).getPersonName(),"Anna");
-        assertEquals(residents1.get(0).getPersonLastName(),"Ivanov");
-        assertEquals(residents2.get(0).getPersonLastName(),"Ivanova");
-        assertEquals(Integer.parseInt(residents1.get(0).getMoneyCount()),12323);
-        assertEquals(Integer.parseInt(residents2.get(0).getMoneyCount()),123);
-        ArrayList<Pet> residentPets1 = residents1.get(0).getPersonsPet();
-        ArrayList<Pet> residentPets2 = residents2.get(0).getPersonsPet();
-        assertEquals(residentPets1.get(0).getPetName(), "Musya");
-        assertEquals(residentPets1.get(0).getAnimalType(), "CAT");
-        assertEquals(residentPets2.get(0).getPetName(), "Tom");
-        assertEquals(residentPets2.get(0).getAnimalType(), "DOG");
-    }
+        ArrayList<Room> parsedRooms = roomDeserializer.fromJsonToList(jsonObject);
 
+        ArrayList<Pet> expectedPets1 = new ArrayList<>();
+        ArrayList<Person> expectedPeople1 = new ArrayList<>();
+        ArrayList<Person> expectedPeople2 = new ArrayList<>();
+
+        Pet pet = new Pet.Builder()
+                .withPetName("Musya")
+                .withAnimalType(AnimalType.valueOf("CAT"))
+                .build();
+
+        expectedPets1.add(pet);
+
+
+        ArrayList<Pet> expectedPets2 = new ArrayList<>();
+
+        Pet pet01 = new Pet.Builder()
+                .withPetName("Tom")
+                .withAnimalType(AnimalType.valueOf("DOG"))
+                .build();
+
+
+        expectedPets2.add(pet01);
+
+
+        Person person1 = new Person.Builder()
+                .withPersonName("Bob")
+                .withPersonLastName("Ivanov")
+                .withMoneyCount(12323)
+                .withPets(expectedPets1)
+                .build();
+
+        Person person2 = new Person.Builder()
+                .withPersonName("Anna")
+                .withPersonLastName("Ivanova")
+                .withMoneyCount(123)
+                .withPets(expectedPets2)
+                .build();
+
+        expectedPeople1.add(person1);
+        expectedPeople2.add(person2);
+
+        Room expectedRoom1 = new Room.Builder()
+                .withRoomNumber(34)
+                .withResidents(expectedPeople1)
+                .build();
+
+        Room expectedRoom2 = new Room.Builder()
+                .withRoomNumber(35)
+                .withResidents(expectedPeople2)
+                .build();
+        ArrayList<Room> expectedRooms = new ArrayList<>();
+        expectedRooms.add(expectedRoom1);
+        expectedRooms.add(expectedRoom2);
+        assertEquals(expectedRooms, parsedRooms);
+    }
 }
