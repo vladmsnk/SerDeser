@@ -5,11 +5,8 @@ import pr.miem.vlad.entities.Pet;
 import pr.miem.vlad.restrictions.AnimalType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class PetDeserializerTest {
@@ -37,7 +34,6 @@ public class PetDeserializerTest {
         expectedPets.add(pet1);
         expectedPets.add(pet2);
         assertEquals(parsedPets, expectedPets);
-
     }
 
 
