@@ -35,7 +35,4 @@ public class PetDeserializerTest {
         expectedPets.add(pet2);
         assertEquals(parsedPets, expectedPets);
     }
-
-
-
 }
