@@ -9,7 +9,6 @@ import pr.miem.vlad.entities.Room;
 import pr.miem.vlad.restrictions.AnimalType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import pr.miem.vlad.deserializations.HomeDeserializer;
 import java.util.ArrayList;
 
 public class HomeDeserializerTest {
@@ -94,6 +93,7 @@ public class HomeDeserializerTest {
         assertEquals(expectedHome, parsedHome);
     }
 
+    @Test
     public void shouldCreateArrayOfHoomObjects() {
         String jsonObject = "[{\"homeNumber\": 343, \"rooms\": [{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"moneyCount\": 12323, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}]}]}]}," +
                 "{\"homeNumber\": 347, \"rooms\":  [{\"roomNumber\": 35, \"residents\": [{\"personName\": \"Anna\", \"personLastName\": \"Ivanova\", \"moneyCount\": 123, \"pets\": [{\"petName\": \"Tom\", \"animalType\": \"DOG\"}]}]}]}]";
@@ -119,9 +119,7 @@ public class HomeDeserializerTest {
                 .withAnimalType(AnimalType.valueOf("DOG"))
                 .build();
 
-
         expectedPets2.add(pet01);
-
 
         Person person1 = new Person.Builder()
                 .withPersonName("Bob")
@@ -150,13 +148,23 @@ public class HomeDeserializerTest {
                 .withResidents(expectedPeople2)
                 .build();
 
-        ArrayList<Room> expectedRoom1 = new ArrayList<>()
+        ArrayList<Room> expectedRooms1 = new ArrayList<>();
+        expectedRooms1.add(expectedRoom1);
+
+        ArrayList<Room> expectedRooms2 = new ArrayList<>();
+        expectedRooms2.add(expectedRoom2);
 
         Home expectedHome1 = new Home.Builder()
-
-        ArrayList<Room> expectedRooms = new ArrayList<>();
-        expectedRooms.add(expectedRoom1);
-        expectedRooms.add(expectedRoom2);
-        assertEquals(expectedRooms, parsedRooms);
+                .withHomeNumber(343)
+                .withRooms(expectedRooms1)
+                .build();
+        Home expectedHome2 = new Home.Builder()
+                .withHomeNumber(347)
+                .withRooms(expectedRooms2)
+                .build();
+        ArrayList<Home> expectedHomes = new ArrayList<>();
+        expectedHomes.add(expectedHome1);
+        expectedHomes.add(expectedHome2);
+        assertEquals(expectedHomes, parsedHomes);
     }
 }
