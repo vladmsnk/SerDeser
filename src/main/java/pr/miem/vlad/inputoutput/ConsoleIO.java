@@ -1,7 +1,7 @@
 package pr.miem.vlad.inputoutput;
 
 import pr.miem.vlad.entities.*;
-import pr.miem.vlad.restrictions.AnimalType;
+import pr.miem.vlad.restrictions.Animal;
 import pr.miem.vlad.tools.Tools;
 
 import java.util.ArrayList;
@@ -9,11 +9,11 @@ import java.util.Scanner;
 
 public class ConsoleIO {
     private String decision;
-    private Scanner scanner = new Scanner(System.in);
-    private ArrayList<Pet> pets = new ArrayList<>();
-    private ArrayList<Person> people = new ArrayList<>();
-    private ArrayList<Room> rooms = new ArrayList<>();
-    private ArrayList<Home> homes = new ArrayList<>();
+    private final Scanner scanner = new Scanner(System.in);
+    private final ArrayList<Pet> pets = new ArrayList<>();
+    private final ArrayList<Person> people = new ArrayList<>();
+    private final ArrayList<Room> rooms = new ArrayList<>();
+    private final ArrayList<Home> homes = new ArrayList<>();
 
     private void chooseYesOrNO() {
         System.out.println("1. Yes");
@@ -72,7 +72,7 @@ public class ConsoleIO {
                                     animalType = scanner.next();
                                 }
 
-                                AnimalType animal = AnimalType.valueOf(animalType);
+                                Animal animal = Animal.valueOf(animalType);
                                 pets.add(new Pet.Builder().withPetName(petName).withAnimalType(animal).build());
                                 System.out.println("Do you want to add Pet?");
                                 chooseYesOrNO();

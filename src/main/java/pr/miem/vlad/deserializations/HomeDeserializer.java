@@ -21,7 +21,6 @@ public class HomeDeserializer implements Deserializer<Home> {
 
     }
 
-
     public ArrayList<Home> fromJsonToList(String jsonStringOfHomes) {
         ArrayList<String> arrayOfJsonObjects = Tools.splitJsonString(jsonStringOfHomes);
         ArrayList<Home> homes = new ArrayList<>();

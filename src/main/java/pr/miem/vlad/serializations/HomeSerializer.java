@@ -13,7 +13,7 @@ public class HomeSerializer implements Serializer<Home> {
             throw new NullPointerException("Home object does not exist!");
         }
         RoomSerializer roomSerializer = new RoomSerializer();
-        String rooms = "[" + roomSerializer.ListOfObjToJson(home.getRooms()) + "]";
+        String rooms = roomSerializer.ListOfObjToJson(home.getRooms());
         return "{" +
                 "\"homeNumber\": " + '"' + home.getHomeNumber() + '"' +
                 ", \"rooms\": " + '"' + rooms +
@@ -24,15 +24,13 @@ public class HomeSerializer implements Serializer<Home> {
         if (listOfHomes.size() == 0) {
             return "";
         }
-        String jsonStringOfHomes = (listOfHomes.size() > 1) ? "[" : "";
+        String jsonStringOfHomes = "[";
         for (Home home : listOfHomes) {
             jsonStringOfHomes = jsonStringOfHomes.concat(objToJson(home));
             jsonStringOfHomes += ", ";
         }
         jsonStringOfHomes = jsonStringOfHomes.substring(0, jsonStringOfHomes.length() - 2);
-        if (listOfHomes.size() > 1) {
-            jsonStringOfHomes += "]";
-        }
+        jsonStringOfHomes += "]";
         return jsonStringOfHomes;
     }
 }

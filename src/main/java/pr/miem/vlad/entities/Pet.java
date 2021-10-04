@@ -1,12 +1,12 @@
 package pr.miem.vlad.entities;
 
-import pr.miem.vlad.restrictions.AnimalType;
+import pr.miem.vlad.restrictions.Animal;
 
 import java.util.Objects;
 
 public class Pet {
     private final String petName;
-    private final AnimalType animalType;
+    private final Animal animal;
 
 
     @Override
@@ -14,17 +14,17 @@ public class Pet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pet pet = (Pet) o;
-        return Objects.equals(petName, pet.petName) && animalType == pet.animalType;
+        return Objects.equals(petName, pet.petName) && animal == pet.animal;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(petName, animalType);
+        return Objects.hash(petName, animal);
     }
 
-    public Pet(String petName, AnimalType animalType) {
+    public Pet(String petName, Animal animal) {
         this.petName = petName;
-        this.animalType = animalType;
+        this.animal = animal;
     }
 
     public String getPetName() {
@@ -32,25 +32,25 @@ public class Pet {
     }
 
     public String getAnimalType() {
-        return animalType.name();
+        return animal.name();
     }
 
     public static class Builder {
         private String petName;
-        private AnimalType animalType;
+        private Animal animal;
 
         public Builder withPetName(String petName) {
             this.petName = petName;
             return this;
         }
 
-        public Builder withAnimalType(AnimalType animalType) {
-            this.animalType = animalType;
+        public Builder withAnimalType(Animal animal) {
+            this.animal = animal;
             return this;
         }
 
         public Pet build() {
-            return new Pet(petName, animalType);
+            return new Pet(petName, animal);
         }
 
     }

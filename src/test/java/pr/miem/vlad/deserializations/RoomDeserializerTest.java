@@ -1,16 +1,15 @@
 package pr.miem.vlad.deserializations;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pr.miem.vlad.entities.Person;
 import pr.miem.vlad.entities.Pet;
 import pr.miem.vlad.entities.Room;
-import pr.miem.vlad.restrictions.AnimalType;
+import pr.miem.vlad.restrictions.Animal;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class RoomDeserializerTest {
     private final RoomDeserializer roomDeserializer = new RoomDeserializer();
@@ -24,17 +23,17 @@ public class RoomDeserializerTest {
 
         Pet pet = new Pet.Builder()
                 .withPetName("Musya")
-                .withAnimalType(AnimalType.valueOf("CAT"))
+                .withAnimalType(Animal.valueOf("CAT"))
                 .build();
 
         Pet pet1 = new Pet.Builder()
                 .withPetName("Anna")
-                .withAnimalType(AnimalType.valueOf("BIRD"))
+                .withAnimalType(Animal.valueOf("BIRD"))
                 .build();
 
         Pet pet2 = new Pet.Builder()
                 .withPetName("Egor")
-                .withAnimalType(AnimalType.valueOf("DOG"))
+                .withAnimalType(Animal.valueOf("DOG"))
                 .build();
 
         expectedPets1.add(pet);
@@ -45,17 +44,17 @@ public class RoomDeserializerTest {
 
         Pet pet01 = new Pet.Builder()
                 .withPetName("Musya1")
-                .withAnimalType(AnimalType.valueOf("CAT"))
+                .withAnimalType(Animal.valueOf("CAT"))
                 .build();
 
         Pet pet11 = new Pet.Builder()
                 .withPetName("Anna1")
-                .withAnimalType(AnimalType.valueOf("BIRD"))
+                .withAnimalType(Animal.valueOf("BIRD"))
                 .build();
 
         Pet pet21 = new Pet.Builder()
                 .withPetName("Egor1")
-                .withAnimalType(AnimalType.valueOf("DOG"))
+                .withAnimalType(Animal.valueOf("DOG"))
                 .build();
 
         expectedPets2.add(pet01);
@@ -100,7 +99,7 @@ public class RoomDeserializerTest {
 
         Pet pet = new Pet.Builder()
                 .withPetName("Musya")
-                .withAnimalType(AnimalType.valueOf("CAT"))
+                .withAnimalType(Animal.valueOf("CAT"))
                 .build();
 
         expectedPets1.add(pet);
@@ -110,7 +109,7 @@ public class RoomDeserializerTest {
 
         Pet pet01 = new Pet.Builder()
                 .withPetName("Tom")
-                .withAnimalType(AnimalType.valueOf("DOG"))
+                .withAnimalType(Animal.valueOf("DOG"))
                 .build();
 
 

@@ -10,7 +10,7 @@ public class PersonSerializer implements Serializer<Person> {
         if (person == null) {
             throw new NullPointerException("Person object does not exist!");
         }
-        String pets = "[" + (new PetSerializer()).ListOfObjToJson(person.getPersonsPet()) + "]";
+        String pets = (new PetSerializer()).ListOfObjToJson(person.getPersonsPet());
         return "{" +
                 "\"personName\": " + '"' + person.getPersonName() + '"' +
                 ", \"personLastName\": " + '"' + person.getPersonLastName() + '"' +
@@ -22,15 +22,13 @@ public class PersonSerializer implements Serializer<Person> {
         if (listOfPeople == null) {
             return "";
         }
-        String jsonStringOfPeople = (listOfPeople.size() > 1) ? "[" : "";
+        String jsonStringOfPeople = "[";
         for (Person person : listOfPeople) {
             jsonStringOfPeople = jsonStringOfPeople.concat(objToJson(person));
             jsonStringOfPeople += ", ";
         }
         jsonStringOfPeople = jsonStringOfPeople.substring(0, jsonStringOfPeople.length() - 2);
-        if (listOfPeople.size() > 1) {
-            jsonStringOfPeople += "]";
-        }
+        jsonStringOfPeople += "]";
         return jsonStringOfPeople;
     }
 

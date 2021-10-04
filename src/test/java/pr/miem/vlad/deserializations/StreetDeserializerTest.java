@@ -2,7 +2,7 @@ package pr.miem.vlad.deserializations;
 
 import org.junit.jupiter.api.Test;
 import pr.miem.vlad.entities.*;
-import pr.miem.vlad.restrictions.AnimalType;
+import pr.miem.vlad.restrictions.Animal;
 
 import java.util.ArrayList;
 
@@ -24,17 +24,17 @@ public class StreetDeserializerTest {
 
         Pet pet = new Pet.Builder()
                 .withPetName("Musya")
-                .withAnimalType(AnimalType.valueOf("CAT"))
+                .withAnimalType(Animal.valueOf("CAT"))
                 .build();
 
         Pet pet1 = new Pet.Builder()
                 .withPetName("Anna")
-                .withAnimalType(AnimalType.valueOf("BIRD"))
+                .withAnimalType(Animal.valueOf("BIRD"))
                 .build();
 
         Pet pet2 = new Pet.Builder()
                 .withPetName("Egor")
-                .withAnimalType(AnimalType.valueOf("DOG"))
+                .withAnimalType(Animal.valueOf("DOG"))
                 .build();
 
         expectedPets1.add(pet);
@@ -45,17 +45,17 @@ public class StreetDeserializerTest {
 
         Pet pet01 = new Pet.Builder()
                 .withPetName("Musya1")
-                .withAnimalType(AnimalType.valueOf("CAT"))
+                .withAnimalType(Animal.valueOf("CAT"))
                 .build();
 
         Pet pet11 = new Pet.Builder()
                 .withPetName("Anna1")
-                .withAnimalType(AnimalType.valueOf("BIRD"))
+                .withAnimalType(Animal.valueOf("BIRD"))
                 .build();
 
         Pet pet21 = new Pet.Builder()
                 .withPetName("Egor1")
-                .withAnimalType(AnimalType.valueOf("DOG"))
+                .withAnimalType(Animal.valueOf("DOG"))
                 .build();
 
         expectedPets2.add(pet01);

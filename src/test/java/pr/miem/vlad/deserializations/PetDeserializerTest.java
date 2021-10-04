@@ -2,7 +2,7 @@ package pr.miem.vlad.deserializations;
 
 import org.junit.jupiter.api.Test;
 import pr.miem.vlad.entities.Pet;
-import pr.miem.vlad.restrictions.AnimalType;
+import pr.miem.vlad.restrictions.Animal;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class PetDeserializerTest {
         Pet parsedPet = petDeserializer.fromJsonToObj(jsonPet);
         Pet expectedPet = new Pet.Builder()
                 .withPetName("Bill")
-                .withAnimalType(AnimalType.valueOf("DOG"))
+                .withAnimalType(Animal.valueOf("DOG"))
                 .build();
         assertEquals(expectedPet, parsedPet);
     }
@@ -29,8 +29,8 @@ public class PetDeserializerTest {
         String jsonPets = "[{\"petName\": \"Bob\", \"animalType\": \"DOG\"}, {\"petName\": \"Bill\", \"animalType\": \"CAT\"}]";
         ArrayList<Pet> parsedPets = petDeserializer.fromJsonToList(jsonPets);
         ArrayList<Pet> expectedPets = new ArrayList<>();
-        Pet pet1 = new Pet.Builder().withPetName("Bob").withAnimalType(AnimalType.valueOf("DOG")).build();
-        Pet pet2 = new Pet.Builder().withPetName("Bill").withAnimalType(AnimalType.valueOf("CAT")).build();
+        Pet pet1 = new Pet.Builder().withPetName("Bob").withAnimalType(Animal.valueOf("DOG")).build();
+        Pet pet2 = new Pet.Builder().withPetName("Bill").withAnimalType(Animal.valueOf("CAT")).build();
         expectedPets.add(pet1);
         expectedPets.add(pet2);
         assertEquals(parsedPets, expectedPets);

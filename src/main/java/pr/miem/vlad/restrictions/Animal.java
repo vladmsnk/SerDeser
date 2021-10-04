@@ -1,6 +1,6 @@
 package pr.miem.vlad.restrictions;
 
-public enum AnimalType {
+public enum Animal {
     DOG,
     BIRD,
     CAT

@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class RunApp {
-    private Street street;
-    private String inputFileName;
-    private String outputFileName;
     public void run() throws IOException {
         System.out.println("Choose option");
         System.out.println("1. Standard input");
@@ -16,6 +13,7 @@ public class RunApp {
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         ConsoleIO consoleIO = new ConsoleIO();
+        Street street;
         while (true) {
             if (option.equals("Standard input") || option.equals("1")) {
                 street = consoleIO.constructStreetFromConsole();
@@ -23,7 +21,7 @@ public class RunApp {
             }
             else if (option.equals("Input from file") || option.equals("2")) {
                 System.out.println("Input file Name");
-                inputFileName = scanner.next();
+                String inputFileName = scanner.next();
                 InputFromFile inputFromFile = new InputFromFile(inputFileName);
                 street = inputFromFile.parseFile();
                 break;
@@ -43,7 +41,7 @@ public class RunApp {
             }
             else if (option.equals("Output to file") || option.equals("2")) {
                 System.out.println("Input file Name");
-                outputFileName = scanner.next();
+                String outputFileName = scanner.next();
                 OutputToFIle outputToFIle = new OutputToFIle(outputFileName, street);
                 break;
             }

@@ -1,6 +1,6 @@
 package pr.miem.vlad.tools;
 
-import pr.miem.vlad.restrictions.AnimalType;
+import pr.miem.vlad.restrictions.Animal;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Tools {
     }
 
     public static boolean isEnumContainsString(String str) {
-        for (AnimalType animal : AnimalType.values()) {
+        for (Animal animal : Animal.values()) {
             if (animal.name().equals(str)) {
                 return true;
             }

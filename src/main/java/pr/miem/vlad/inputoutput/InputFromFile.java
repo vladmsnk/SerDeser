@@ -18,10 +18,8 @@ public class InputFromFile {
     }
 
     public Street parseFile() throws IOException {
-        String data = "";
-        data = new String(Files.readAllBytes(Paths.get(inputFileName)));
+        String data = new String(Files.readAllBytes(Paths.get(inputFileName)));
+        data = data.replaceAll("\\s+","");
         return streetDeserializer.fromJsonToObj(data);
     }
-
-
 }

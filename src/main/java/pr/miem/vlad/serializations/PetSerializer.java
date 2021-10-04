@@ -20,15 +20,14 @@ public class PetSerializer implements Serializer<Pet> {
         if (listOfPets == null) {
             return "";
         }
-        String jsonStringOfPets = (listOfPets.size() > 1) ? "[" : "";
+        String jsonStringOfPets = "[";
         for (Pet pet : listOfPets) {
             jsonStringOfPets = jsonStringOfPets.concat(objToJson(pet));
             jsonStringOfPets += ", ";
         }
         jsonStringOfPets = jsonStringOfPets.substring(0, jsonStringOfPets.length() - 2);
-        if (listOfPets.size() > 1) {
-            jsonStringOfPets += "]";
-        }
+        jsonStringOfPets += "]";
+
         return  jsonStringOfPets;
     }
 }
