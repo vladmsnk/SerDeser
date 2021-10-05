@@ -23,8 +23,8 @@ public class PersonDeserializerTest {
         expectedPets.add(pet1);
         expectedPets.add(pet2);
         Person expectPerson = new Person.Builder()
-                .withPersonName("Andrey")
-                .withPersonLastName("Ivanov")
+                .withName("Andrey")
+                .withLastName("Ivanov")
                 .withMoney(123)
                 .withPets(expectedPets)
                 .build();
@@ -40,8 +40,8 @@ public class PersonDeserializerTest {
         Pet pet1 = new Pet.Builder().withPetName("Bob").withAnimalType(Animal.valueOf("BIRD")).build();
         expectedPets1.add(pet1);
         Person person1 = new Person.Builder()
-                .withPersonName("Andrey")
-                .withPersonLastName("Ivanov")
+                .withName("Andrey")
+                .withLastName("Ivanov")
                 .withMoney(1000)
                 .withPets(expectedPets1)
                 .build();
@@ -50,8 +50,8 @@ public class PersonDeserializerTest {
         Pet pet2 = new Pet.Builder().withPetName("Tom").withAnimalType(Animal.valueOf("CAT")).build();
         expectedPets2.add(pet2);
         Person person2 = new Person.Builder()
-                .withPersonName("Vova")
-                .withPersonLastName("Gerasimov")
+                .withName("Vova")
+                .withLastName("Gerasimov")
                 .withMoney(213)
                 .withPets(expectedPets2)
                 .build();

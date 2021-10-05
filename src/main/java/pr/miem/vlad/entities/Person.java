@@ -5,62 +5,62 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Person {
-    private final String personName;
-    private final String personLastName;
+    private final String name;
+    private final String lastName;
     private final int money;
-    private final ArrayList<Pet> personsPet;
+    private final ArrayList<Pet> pets;
 
-    public Person(String personName, String personLastName, int money, ArrayList<Pet> personsPet) {
-        this.personName = personName;
-        this.personLastName = personLastName;
-        this.personsPet = personsPet;
+    private Person(String name, String lastName, int money, ArrayList<Pet> pets) {
+        this.name = name;
+        this.lastName = lastName;
+        this.pets = pets;
         this.money = money;
     }
 
-    public String getPersonName() {
-        return personName;
+    public String getName() {
+        return name;
     }
 
-    public String getPersonLastName() {
-        return personLastName;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getMoney() {
         return String.valueOf(money);
     }
 
-    public  ArrayList<Pet> getPersonsPet() {
-        return new ArrayList<>(personsPet);
+    public  ArrayList<Pet> getPets() {
+        return new ArrayList<>(pets);
     }
 
     public static class Builder {
-        private String personName;
-        private String personLastName;
-        private int moneyCount;
-        private ArrayList<Pet> personsPets;
+        private String name;
+        private String lastName;
+        private int money;
+        private ArrayList<Pet> pets;
 
-        public Builder withPersonName(String personName) {
-            this.personName = personName;
+        public Builder withName(String name) {
+            this.name = name;
             return this;
         }
 
-        public Builder withPersonLastName(String personLastName) {
-            this.personLastName = personLastName;
+        public Builder withLastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
-        public Builder withMoney(int moneyCount) {
-            this.moneyCount = moneyCount;
+        public Builder withMoney(int money) {
+            this.money = money;
             return this;
         }
 
-        public Builder withPets(ArrayList<Pet> personsPets) {
-            this.personsPets = personsPets;
+        public Builder withPets(ArrayList<Pet> pets) {
+            this.pets = pets;
             return this;
         }
 
         public Person build() {
-            return new Person(personName, personLastName, moneyCount, personsPets);
+            return new Person(name, lastName, money, pets);
         }
     }
 
@@ -69,11 +69,11 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return money == person.money && Objects.equals(personName, person.personName) && Objects.equals(personLastName, person.personLastName) && Objects.equals(personsPet, person.personsPet);
+        return money == person.money && Objects.equals(name, person.name) && Objects.equals(lastName, person.lastName) && Objects.equals(pets, person.pets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personName, personLastName, money, personsPet);
+        return Objects.hash(name, lastName, money, pets);
     }
 }

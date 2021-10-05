@@ -8,20 +8,7 @@ public class Home {
     private final int homeNumber;
     private final ArrayList<Room> rooms;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Home home = (Home) o;
-        return homeNumber == home.homeNumber && Objects.equals(rooms, home.rooms);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(homeNumber, rooms);
-    }
-
-    public Home(int homeNumber, ArrayList<Room> rooms) {
+    private Home(int homeNumber, ArrayList<Room> rooms) {
         this.homeNumber = homeNumber;
         this.rooms = rooms;
     }
@@ -52,5 +39,16 @@ public class Home {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Home home = (Home) o;
+        return homeNumber == home.homeNumber && Objects.equals(rooms, home.rooms);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(homeNumber, rooms);
+    }
 }

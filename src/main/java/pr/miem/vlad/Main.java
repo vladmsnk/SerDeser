@@ -18,8 +18,8 @@ public class Main {
         ArrayList<Pet> pets = new ArrayList<>();
         pets.add(pet);
         Person person = new Person.Builder()
-                .withPersonName("Vlad")
-                .withPersonLastName("Egorov")
+                .withName("Vlad")
+                .withLastName("Egorov")
                 .withMoney(123)
                 .withPets(pets)
                 .build();

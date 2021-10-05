@@ -10,10 +10,10 @@ public class PersonSerializer implements Serializer<Person> {
         if (person == null) {
             throw new NullPointerException("Person object does not exist!");
         }
-        String pets = (new PetSerializer()).ListOfObjToJson(person.getPersonsPet());
+        String pets = (new PetSerializer()).ListOfObjToJson(person.getPets());
         return "{" +
-                "\"personName\": " + '"' + person.getPersonName() + '"' +
-                ", \"personLastName\": " + '"' + person.getPersonLastName() + '"' +
+                "\"personName\": " + '"' + person.getName() + '"' +
+                ", \"personLastName\": " + '"' + person.getLastName() + '"' +
                 ", \"money\": " + '"' + person.getMoney() + '"' +
                 ", \"pets\": " + pets +
                 "}";

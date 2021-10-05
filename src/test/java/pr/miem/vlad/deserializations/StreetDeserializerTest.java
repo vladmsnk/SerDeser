@@ -62,15 +62,15 @@ public class StreetDeserializerTest {
         expectedPets2.add(pet21);
 
         Person person1 = new Person.Builder()
-                .withPersonName("Bob")
-                .withPersonLastName("Ivanov")
+                .withName("Bob")
+                .withLastName("Ivanov")
                 .withMoney(123)
                 .withPets(expectedPets1)
                 .build();
 
         Person person2 = new Person.Builder()
-                .withPersonName("Bob1")
-                .withPersonLastName("Ivanov1")
+                .withName("Bob1")
+                .withLastName("Ivanov1")
                 .withMoney(1233)
                 .withPets(expectedPets2)
                 .build();
