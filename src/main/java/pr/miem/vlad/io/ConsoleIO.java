@@ -80,7 +80,7 @@ public class ConsoleIO {
                                     break;
                                 }
                             }
-                            people.add(new Person.Builder().withPersonName(personName).withPersonLastName(personLastName).withMoneyCount(moneyCount).withPets(pets).build());
+                            people.add(new Person.Builder().withPersonName(personName).withPersonLastName(personLastName).withMoney(moneyCount).withPets(pets).build());
                             System.out.println("Do you want to add Resident?");
                             chooseYesOrNO();
                             if (decision.equals("No") || decision.equals("2")) {
@@ -116,7 +116,7 @@ public class ConsoleIO {
                 System.out.println(" Room :" + room.getRoomNumber());
                 for (Person person : room.getResidents()) {
                     System.out.println("  Resident: " + person.getPersonName() + " " + person.getPersonLastName());
-                    System.out.println("  Possesion: " + person.getMoneyCount());
+                    System.out.println("  Possesion: " + person.getMoney());
                     for (Pet pet : person.getPersonsPet()) {
                         System.out.println("   Pets");
                         System.out.println("   PetName: " + pet.getPetName());

@@ -14,7 +14,7 @@ public class PersonSerializer implements Serializer<Person> {
         return "{" +
                 "\"personName\": " + '"' + person.getPersonName() + '"' +
                 ", \"personLastName\": " + '"' + person.getPersonLastName() + '"' +
-                ", \"moneyCount\": " + '"' + person.getMoneyCount() + '"' +
+                ", \"money\": " + '"' + person.getMoney() + '"' +
                 ", \"pets\": " + pets +
                 "}";
     }

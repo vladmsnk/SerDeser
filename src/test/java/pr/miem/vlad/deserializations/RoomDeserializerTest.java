@@ -16,7 +16,7 @@ public class RoomDeserializerTest {
 
     @Test
     public void shouldCreateRoomObject() {
-        String jsonObject = "{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"moneyCount\": 123, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor\", \"animalType\": \"DOG\"}]}, {\"personName\": \"Bob1\", \"personLastName\": \"Ivanov1\", \"moneyCount\": 1233, \"pets\": [{\"petName\": \"Musya1\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna1\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor1\", \"animalType\": \"DOG\"}]}]}";
+        String jsonObject = "{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"money\": 123, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor\", \"animalType\": \"DOG\"}]}, {\"personName\": \"Bob1\", \"personLastName\": \"Ivanov1\", \"money\": 1233, \"pets\": [{\"petName\": \"Musya1\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna1\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor1\", \"animalType\": \"DOG\"}]}]}";
         Room parsedRoom = roomDeserializer.fromJsonToObj(jsonObject);
         ArrayList<Pet> expectedPets1 = new ArrayList<>();
         ArrayList<Person> expectedPeople = new ArrayList<>();
@@ -65,14 +65,14 @@ public class RoomDeserializerTest {
         Person person1 = new Person.Builder()
                 .withPersonName("Bob")
                 .withPersonLastName("Ivanov")
-                .withMoneyCount(123)
+                .withMoney(123)
                 .withPets(expectedPets1)
                 .build();
 
         Person person2 = new Person.Builder()
                 .withPersonName("Bob1")
                 .withPersonLastName("Ivanov1")
-                .withMoneyCount(1233)
+                .withMoney(1233)
                 .withPets(expectedPets2)
                 .build();
 
@@ -89,8 +89,8 @@ public class RoomDeserializerTest {
 
     @Test
     public void shouldCreateArrayOfRoomObjects() {
-        String jsonObject = "{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"moneyCount\": 12323, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}]}]}," +
-                " {\"roomNumber\": 35, \"residents\": [{\"personName\": \"Anna\", \"personLastName\": \"Ivanova\", \"moneyCount\": 123, \"pets\": [{\"petName\": \"Tom\", \"animalType\": \"DOG\"}]}]}";
+        String jsonObject = "{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"money\": 12323, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}]}]}," +
+                " {\"roomNumber\": 35, \"residents\": [{\"personName\": \"Anna\", \"personLastName\": \"Ivanova\", \"money\": 123, \"pets\": [{\"petName\": \"Tom\", \"animalType\": \"DOG\"}]}]}";
         ArrayList<Room> parsedRooms = roomDeserializer.fromJsonToList(jsonObject);
 
         ArrayList<Pet> expectedPets1 = new ArrayList<>();
@@ -119,14 +119,14 @@ public class RoomDeserializerTest {
         Person person1 = new Person.Builder()
                 .withPersonName("Bob")
                 .withPersonLastName("Ivanov")
-                .withMoneyCount(12323)
+                .withMoney(12323)
                 .withPets(expectedPets1)
                 .build();
 
         Person person2 = new Person.Builder()
                 .withPersonName("Anna")
                 .withPersonLastName("Ivanova")
-                .withMoneyCount(123)
+                .withMoney(123)
                 .withPets(expectedPets2)
                 .build();
 

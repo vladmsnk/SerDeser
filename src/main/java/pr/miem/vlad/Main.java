@@ -20,7 +20,7 @@ public class Main {
         Person person = new Person.Builder()
                 .withPersonName("Vlad")
                 .withPersonLastName("Egorov")
-                .withMoneyCount(123)
+                .withMoney(123)
                 .withPets(pets)
                 .build();
         PetSerializer petSerializer = new PetSerializer();

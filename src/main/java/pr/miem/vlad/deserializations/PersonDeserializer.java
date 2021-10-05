@@ -16,7 +16,7 @@ public class PersonDeserializer implements Deserializer<Person> {
         return new Person.Builder()
                 .withPersonName(mapOfJson.get("personName"))
                 .withPersonLastName(mapOfJson.get("personLastName"))
-                .withMoneyCount(Integer.parseInt(mapOfJson.get("moneyCount")))
+                .withMoney(Integer.parseInt(mapOfJson.get("money")))
                 .withPets(pets)
                 .build();
     }

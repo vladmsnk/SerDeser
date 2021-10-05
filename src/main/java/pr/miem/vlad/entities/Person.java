@@ -2,33 +2,19 @@ package pr.miem.vlad.entities;
 
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Person {
     private final String personName;
     private final String personLastName;
-    private final int moneyCount;
+    private final int money;
     private final ArrayList<Pet> personsPet;
 
-    public Person(String personName, String personLastName, int moneyCount, ArrayList<Pet> personsPet) {
+    public Person(String personName, String personLastName, int money, ArrayList<Pet> personsPet) {
         this.personName = personName;
         this.personLastName = personLastName;
         this.personsPet = personsPet;
-        this.moneyCount = moneyCount;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return moneyCount == person.moneyCount && Objects.equals(personName, person.personName) && Objects.equals(personLastName, person.personLastName) && Objects.equals(personsPet, person.personsPet);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(personName, personLastName, moneyCount, personsPet);
+        this.money = money;
     }
 
     public String getPersonName() {
@@ -36,15 +22,11 @@ public class Person {
     }
 
     public String getPersonLastName() {
-
         return personLastName;
     }
 
-    public int getPetCount() {
-        return personsPet.size();
-    }
-    public String getMoneyCount() {
-        return String.valueOf(moneyCount);
+    public String getMoney() {
+        return String.valueOf(money);
     }
 
     public  ArrayList<Pet> getPersonsPet() {
@@ -67,7 +49,7 @@ public class Person {
             return this;
         }
 
-        public Builder withMoneyCount(int moneyCount) {
+        public Builder withMoney(int moneyCount) {
             this.moneyCount = moneyCount;
             return this;
         }
@@ -80,6 +62,18 @@ public class Person {
         public Person build() {
             return new Person(personName, personLastName, moneyCount, personsPets);
         }
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return money == person.money && Objects.equals(personName, person.personName) && Objects.equals(personLastName, person.personLastName) && Objects.equals(personsPet, person.personsPet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personName, personLastName, money, personsPet);
     }
 }
