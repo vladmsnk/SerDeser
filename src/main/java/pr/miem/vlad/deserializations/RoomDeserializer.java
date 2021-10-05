@@ -12,7 +12,7 @@ public class RoomDeserializer implements Deserializer<Room> {
 
     public Room fromJsonToObj(String jsonStringOfRoom) {
         ParseJsonObject parseJsonObject = new ParseJsonObject(jsonStringOfRoom);
-        Map<String, String> mapOfJson = parseJsonObject.getMapOfJson();
+        Map<String, String> mapOfJson = parseJsonObject.jsonParse();
         PersonDeserializer personDeserializer = new PersonDeserializer();
         ArrayList<Person> people = personDeserializer.fromJsonToList(mapOfJson.get("residents"));
         return new Room.Builder()

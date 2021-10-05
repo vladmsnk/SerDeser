@@ -1,4 +1,4 @@
-import pr.miem.vlad.inputoutput.InputFromFile;
+import pr.miem.vlad.io.InputFromFile;
 import pr.miem.vlad.entities.*;
 import pr.miem.vlad.restrictions.Animal;
 import pr.miem.vlad.serializations.*;

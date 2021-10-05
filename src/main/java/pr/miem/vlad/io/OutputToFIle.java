@@ -1,4 +1,4 @@
-package pr.miem.vlad.inputoutput;
+package pr.miem.vlad.io;
 
 import pr.miem.vlad.serializations.StreetSerializer;
 

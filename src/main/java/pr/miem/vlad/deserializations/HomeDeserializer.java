@@ -11,7 +11,7 @@ import java.util.Map;
 public class HomeDeserializer implements Deserializer<Home> {
     public Home fromJsonToObj(String jsonStringOfHome) {
         ParseJsonObject parseJsonObject = new ParseJsonObject(jsonStringOfHome);
-        Map<String, String> mapOfJson = parseJsonObject.getMapOfJson();
+        Map<String, String> mapOfJson = parseJsonObject.jsonParse();
         RoomDeserializer roomDeserializer = new RoomDeserializer();
         ArrayList<Room> rooms = roomDeserializer.fromJsonToList(mapOfJson.get("rooms"));
         return new Home.Builder()

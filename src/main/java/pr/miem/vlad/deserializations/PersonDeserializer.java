@@ -10,7 +10,7 @@ import java.util.Map;
 public class PersonDeserializer implements Deserializer<Person> {
     public Person fromJsonToObj(String jsonStringOfPerson) {
         ParseJsonObject parseJsonObject = new ParseJsonObject(jsonStringOfPerson);
-        Map<String, String> mapOfJson = parseJsonObject.getMapOfJson();
+        Map<String, String> mapOfJson = parseJsonObject.jsonParse();
         PetDeserializer petDeserializer = new PetDeserializer();
         ArrayList<Pet> pets = petDeserializer.fromJsonToList(mapOfJson.get("pets"));
         return new Person.Builder()

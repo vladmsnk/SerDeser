@@ -15,7 +15,7 @@ public class PetDeserializer implements Deserializer<Pet> {
 
     public Pet fromJsonToObj(String jsonString) {
         ParseJsonObject parseJsonObject = new ParseJsonObject(jsonString);
-        Map<String, String> mapOfJson = parseJsonObject.getMapOfJson();
+        Map<String, String> mapOfJson = parseJsonObject.jsonParse();
         return new Pet.Builder().withPetName(mapOfJson.get("petName")).withAnimalType(Animal.valueOf(mapOfJson.get("animalType"))).build();
     }
 

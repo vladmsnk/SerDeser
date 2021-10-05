@@ -1,11 +1,8 @@
-package pr.miem.vlad.inputoutput;
+package pr.miem.vlad.io;
 
 import pr.miem.vlad.deserializations.StreetDeserializer;
-import pr.miem.vlad.serializations.StreetSerializer;
 import pr.miem.vlad.entities.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.nio.file.*;
 

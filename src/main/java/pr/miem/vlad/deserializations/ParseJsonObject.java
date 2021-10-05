@@ -1,311 +1,210 @@
 package pr.miem.vlad.deserializations;
-
-
 import java.util.Map;
 import java.util.HashMap;
 
 public class ParseJsonObject {
     public final String jsonString;
     private int state;
-    private Map<String, String> mapOfJson = new HashMap<>();
+    private final Map<String, String> jsonMap = new HashMap<>();
     private int firstIndexOfStr;
-    private int lastIndexOfStr;
     private String currentKey;
-    private String currentValue;
-    private int openBracketCnt;
-    private int closeBracketCnt;
+    private int bracketCount;
 
     public ParseJsonObject(String jsonString) {
         this.jsonString = jsonString;
-        this.state = 0;
-        this.firstIndexOfStr = 0;
     }
 
-    private void initializeLastIndexOfValue(int currentIndex) {
-        lastIndexOfStr = currentIndex;
-    }
-
-    private boolean isSymbol(char symbol) {
-        return (Character.isDigit(symbol) || Character.isLetter(symbol) || Character.isSpaceChar(symbol)
-                || symbol == '"' || symbol == ':' || symbol == ',' || symbol == '{' || symbol == '}');
-    }
-
-    private boolean isWord(char symbol) {
-        return (Character.isDigit(symbol) || Character.isLetter(symbol));
-    }
-
-    private void jsonParse() {
+    public Map<String, String>  jsonParse() {
         for (int i = 0; i < jsonString.length(); i++) {
             transmit(jsonString.charAt(i), i);
         }
-        if (state == 26) {
-            transmit('}', jsonString.length() - 1);
-        }
-    }
-    public Map<String, String> getMapOfJson() {
-        jsonParse();
-        return new HashMap<>(mapOfJson);
+        return new HashMap<>(jsonMap);
     }
 
-    private void transmit(char symbol, int currentIndex) {
+    private void transmit(char charElement, int currentIndex) {
         switch (state) {
             case 0:
-                if (symbol == '{') {
-                    state = 1;
-                } else {
-                    throw new Error("unknown symbol at state 0!");
+                if (!Character.isSpaceChar(charElement)) {
+                    if (charElement == '{') {
+                        state = 1;
+                    } else {
+                        throw new IllegalStateException("State 0, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
                 break;
             case 1:
-                if (symbol == '"') {
-                    firstIndexOfStr = currentIndex + 1;
-                    state = 2;
-                } else {
-                    throw new Error("unknown symbol at state 1!");
+                if (!Character.isSpaceChar(charElement)) {
+                    if (charElement == '"') {
+                        firstIndexOfStr = currentIndex + 1;
+                        state = 2;
+                    } else {
+                        throw new IllegalStateException("State 1, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
                 break;
             case 2:
-                if (Character.isLetter(symbol)) {
-                    state = 3;
-                } else {
-                    throw new Error("unknown symbol at state 2!");
+                if (!Character.isLetterOrDigit(charElement)) {
+                    if (charElement == '"') {
+                        state = 3;
+                        currentKey = jsonString.substring(firstIndexOfStr, currentIndex);
+                    } else {
+                        throw new IllegalStateException("State 2, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
                 break;
             case 3:
-                if (Character.isLetter(symbol)) {
-                    state = 3;
-                } else if (symbol == '"') {
-                    currentKey = jsonString.substring(firstIndexOfStr, currentIndex);
-
-                    state = 4;
-                } else {
-                    throw new Error("unknown symbol at state 3!");
+                if (!Character.isSpaceChar(charElement)) {
+                    if (charElement == ':') {
+                        state = 4;
+                    } else {
+                        throw new IllegalStateException("State 3, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
                 break;
+
             case 4:
-                if (Character.isSpaceChar(symbol)) {
-                    state = 4;
-                } else if (symbol == ':') {
-                    state = 5;
-                } else {
-                    throw new Error("unknown symbol at state 4!");
+                if (!Character.isSpaceChar(charElement)) {
+                    if (Character.isDigit(charElement)) {
+                        state = 5;
+                    } else if (charElement == '{') {
+                        bracketCount++;
+                        state = 6;
+                    } else if (charElement == '[') {
+                        bracketCount++;
+                        state = 7;
+                    } else if (charElement == 't') {
+                        state = 8;
+                    } else if (charElement == 'f') {
+                        state = 11;
+                    } else if (charElement == '"') {
+                        state = 14;
+                    } else {
+                        throw new IllegalStateException("State 4, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
+                    firstIndexOfStr = currentIndex;
                 }
                 break;
             case 5:
-                if (Character.isSpaceChar(symbol)) {
-                    state = 5;
-                }else if (Character.isDigit(symbol)) {
-                    state = 6;
-                } else if (symbol == '{') {
-                    state = 8;
-                } else if (symbol == '[') {
-                    openBracketCnt++;
-                    state = 11;
-                } else if (symbol == 't') {
-                    state = 14;
-                } else if (symbol == 'f') {
-                    state = 18;
-                } else if (symbol == '"') {
-                    state = 23;
+                if (!Character.isDigit(charElement)) {
+                    if (charElement == ',' || charElement == '}') {
+                        String currentValue = jsonString.substring(firstIndexOfStr, currentIndex);
+                        jsonMap.put(currentKey, currentValue);
+                        state = (charElement == ',')? 1 : 16;
+                    } else {
+                        throw new IllegalStateException("State 5 Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
-                else {
-                    throw new Error("unknown symbol at state 5!");
-                }
-                firstIndexOfStr = (state == 6) ?  currentIndex - 1: currentIndex;
                 break;
             case 6:
-                if (Character.isDigit(symbol)) {
-                    state = 6;
-                } else if (symbol == ',') {
-                    state = 7;
-                } else  if (symbol == '}') {
-                    state = 26;
-                } else  {
-                    throw new Error("unknown symbol at state 6!");
+                if (isNotSymbol(charElement)) {
+                    if (charElement == '{') {
+                        bracketCount++;
+                    } else if (charElement == '}') {
+                        bracketCount--;
+                        if (bracketCount == 0) {
+                            String currentValue = jsonString.substring(firstIndexOfStr, currentIndex + 1);
+                            jsonMap.put(currentKey, currentValue);
+                            state = 15;
+                        }
+                    } else {
+                        throw new IllegalStateException("State 6, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
-                if (state == 7 || state == 26) {
-                    initializeLastIndexOfValue(currentIndex + 1);
-                } else {
-                    initializeLastIndexOfValue(currentIndex);
+                break;
+            case 7:
+                if (isNotSymbol(charElement) && !isFigureBracket(charElement)) {
+                    if (charElement == '[') {
+                        bracketCount++;
+                    } else if (charElement == ']') {
+                        bracketCount--;
+                        if (bracketCount == 0) {
+                            String currentValue = jsonString.substring(firstIndexOfStr, currentIndex + 1);
+                            jsonMap.put(currentKey, currentValue);
+                            state = 15;
+                        }
+                    } else {
+                        throw new IllegalStateException("State 7, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
                 break;
             case 8:
-                if (isSymbol(symbol)) {
+                if (charElement == 'r') {
                     state = 9;
                 } else {
-                    throw new Error("unknown symbol at state 8!");
+                    throw new IllegalStateException("State 8, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
                 }
                 break;
             case 9:
-                if (isSymbol(symbol)) {
-                    state = 9;
-                } else if (symbol == '}') {
+                if (charElement == 'u') {
                     state = 10;
                 } else {
-                    throw new Error("unknown symbol at state 9!");
+                    throw new IllegalStateException("State 9, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
                 }
                 break;
             case 10:
-                if (symbol == ',') {
-                    state = 7;
-                } else if (symbol == '}') {
-                    state = 26;
+                if (charElement == 'e') {
+                    String currentValue = jsonString.substring(firstIndexOfStr, currentIndex + 1);
+                    jsonMap.put(currentKey, currentValue);
+                    state = 15;
                 } else {
-                    throw new Error("unknown symbol at state 10!");
+                    throw new IllegalStateException("State 10, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
                 }
-                initializeLastIndexOfValue(currentIndex);
                 break;
             case 11:
-                if (isSymbol(symbol)) {
+                if (charElement == 'a') {
                     state = 12;
-                }
-                else {
-                    throw new Error("unknown symbol at state 11!");
+                } else {
+                    throw new IllegalStateException("State 11, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
                 }
                 break;
             case 12:
-                if (isSymbol(symbol)) {
-                    state = 12;
-                }
-                else if (symbol == '[') {
-                    openBracketCnt++;
-                    state = 12;
-                }
-                else if (symbol == ']') {
-                    closeBracketCnt++;
-                    if (openBracketCnt == closeBracketCnt) {
-                        state = 13;
-                        openBracketCnt = 0;
-                        closeBracketCnt = 0;
-                    }
-                    else {
-                        state = 12;
-                    }
-                }
-                else {
-                    throw new Error("unknown symbol at state 12!");
+                if (charElement == 'l') {
+                    state = 13;
+                } else {
+                    throw new IllegalStateException("State 12, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
                 }
                 break;
             case 13:
-                if (symbol == '}') {
-                    state = 26;
-                } else if (symbol == ',') {
-                    state = 7;
+                if (charElement == 's') {
+                    state = 10;
                 } else {
-                    throw new Error("unknown symbol at state 13!");
+                    throw new IllegalStateException("State 13, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
                 }
-                initializeLastIndexOfValue(currentIndex);
                 break;
             case 14:
-                if (symbol == 'r') {
-                    state = 15;
-                } else {
-                    throw new Error("unknown symbol at state 14!");
+                if (!Character.isLetterOrDigit(charElement)) {
+                    if (charElement == '"') {
+                        String currentValue = jsonString.substring(firstIndexOfStr + 1, currentIndex);
+                        jsonMap.put(currentKey, currentValue);
+                        state = 15;
+                    }
+                    else {
+                        throw new IllegalStateException("State 14, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
                 break;
             case 15:
-                if (symbol == 'u') {
-                    state = 16;
-                } else {
-                    throw new Error("unknown symbol at state 15!");
+                if (!Character.isSpaceChar(charElement)) {
+                    if (charElement == ',') {
+                        state = 1;
+                    } else if (charElement == '}') {
+                        state = 16;
+                    }
+                    else {
+                        throw new IllegalStateException("State 15, Unknown charElement " + charElement + " at the index " + currentIndex + "!");
+                    }
                 }
-                break;
             case 16:
-                if (symbol == 'e') {
-                    state = 17;
-                } else {
-                    throw new Error("unknown symbol at state 16!");
-                }
-                break;
-            case 17:
-                if (symbol == '}') {
-                    state = 26;
-                } else if (symbol == ',') {
-                    state = 7;
-                } else {
-                    throw new Error("unknown symbol at state 17!");
-                }
-                initializeLastIndexOfValue(currentIndex);
-                break;
-            case 18:
-                if (symbol == 'a') {
-                    state = 19;
-                } else {
-                    throw new Error("unknown symbol at state 18!");
-                }
-                break;
-            case 19:
-                if (symbol == 'l') {
-                    state = 20;
-                } else {
-                    throw new Error("unknown symbol at state 19!");
-                }
-                break;
-            case 20:
-                if (symbol == 's') {
-                    state = 21;
-                } else {
-                    throw new Error("unknown symbol at state 21!");
-                }
-                break;
-            case 21:
-                if (symbol == 'e') {
-                    state = 22;
-                } else {
-                    throw new Error("unknown symbol at state 21!");
-                }
-                break;
-            case 22:
-                if (symbol == ',') {
-                    state = 7;
-                } else if (symbol == '}') {
-                    state = 26;
-                } else {
-                    throw new Error("unknown symbol at state 22!");
-                }
-                initializeLastIndexOfValue(currentIndex);
-                break;
-            case 23:
-                if (isWord(symbol)) {
-                    state = 24;
-                } else {
-                    throw new Error("unknown symbol at state 23!");
-                }
-            case 24:
-                if (isWord(symbol)) {
-                    state = 24;
-                } else if (symbol == '"') {
-                    state = 25;
-                } else {
-                    throw new Error("unknown symbol at state 24!");
-                }
-                break;
-            case 25:
-                if (symbol == ',') {
-                    state = 7;
-                } else if (symbol == '}') {
-                    state = 26;
-                } else {
-                    throw new Error("unknown symbol at state 25!");
-                }
-                initializeLastIndexOfValue(currentIndex);
-                break;
-            case 7:
-                if (Character.isSpaceChar(symbol)) {
-                    state = 7;
-                } else if (symbol == '"') {
-                    currentValue = jsonString.substring(firstIndexOfStr + 1, lastIndexOfStr - 1);
-                    firstIndexOfStr = currentIndex + 1;
-                    mapOfJson.put(currentKey, currentValue);
-                    state = 2;
-                } else {
-                    throw new Error("unknown symbol at state 7!");
-                }
-                break;
-            case 26:
-                currentValue = jsonString.substring(firstIndexOfStr + 1, lastIndexOfStr - 1);
-                mapOfJson.put(currentKey, currentValue);
                 break;
         }
+    }
+
+    private boolean isNotSymbol(char symbol) {
+        return (!Character.isLetterOrDigit(symbol) && !Character.isSpaceChar(symbol)
+                && symbol != '"' && symbol != ':' && symbol != ',' && symbol != '.');
+    }
+
+    private  boolean isFigureBracket(char symbol) {
+        return (symbol == '{' || symbol == '}');
     }
 }
