@@ -147,4 +147,6 @@ public class ApartmentDeserializerTest {
         expectedApartments.add(expectedApartment2);
         assertEquals(expectedApartments, parsedApartments);
     }
+
+
 }
