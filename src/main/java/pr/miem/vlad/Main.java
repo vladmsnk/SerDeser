@@ -12,8 +12,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         InputFromFile inputFromFile = new InputFromFile("C:\\Users\\влад\\IdeaProjects\\prSchool\\src\\test\\java\\test.json");
         Pet pet = new Pet.Builder()
-                .withPetName("Tomas")
-                .withAnimalType(Animal.BIRD)
+                .withName("Tomas")
+                .withAnimal(Animal.BIRD)
                 .build();
         ArrayList<Pet> pets = new ArrayList<>();
         pets.add(pet);

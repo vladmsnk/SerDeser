@@ -11,11 +11,11 @@ public class PetDeserializer implements Deserializer<Pet> {
 
     public Pet fromJsonToObj(String jsonString) {
         ParseJsonObject parseJsonObject = new ParseJsonObject(jsonString);
-        Map<String, String> mapOfJson = parseJsonObject.jsonParse();
-        if (!(mapOfJson.containsKey("petName") && mapOfJson.containsKey("animalType"))) {
+        Map<String, String> jsonMap = parseJsonObject.jsonParse();
+        if (!(jsonMap.containsKey("name") && jsonMap.containsKey("animal"))) {
             throw new IllegalArgumentException("Unknown key!");
         }
-        return new Pet.Builder().withPetName(mapOfJson.get("petName")).withAnimalType(Animal.valueOf(mapOfJson.get("animalType"))).build();
+        return new Pet.Builder().withName(jsonMap.get("name")).withAnimal(Animal.valueOf(jsonMap.get("animal"))).build();
     }
 
     public ArrayList<Pet> fromJsonToList(String jsonStringOfPets) {

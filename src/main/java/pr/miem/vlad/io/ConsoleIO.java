@@ -73,7 +73,7 @@ public class ConsoleIO {
                                 }
 
                                 Animal animal = Animal.valueOf(animalType);
-                                pets.add(new Pet.Builder().withPetName(petName).withAnimalType(animal).build());
+                                pets.add(new Pet.Builder().withName(petName).withAnimal(animal).build());
                                 System.out.println("Do you want to add Pet?");
                                 chooseYesOrNO();
                                 if (decision.equals("No") || decision.equals("2")) {
@@ -119,8 +119,8 @@ public class ConsoleIO {
                     System.out.println("  Possesion: " + person.getMoney());
                     for (Pet pet : person.getPets()) {
                         System.out.println("   Pets");
-                        System.out.println("   PetName: " + pet.getPetName());
-                        System.out.println("   AnimalType: " + pet.getAnimalType());
+                        System.out.println("   PetName: " + pet.getName());
+                        System.out.println("   AnimalType: " + pet.getAnimal());
                     }
                 }
             }

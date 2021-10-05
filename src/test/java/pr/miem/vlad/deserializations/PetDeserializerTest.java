@@ -15,22 +15,22 @@ public class PetDeserializerTest {
 
     @Test
     public void shouldCreatePetObject() {
-        String jsonPet = "{\"petName\":\"Bill\", \"animalType\":\"DOG\"}";
+        String jsonPet = "{\"name\":\"Bill\", \"animal\":\"DOG\"}";
         Pet parsedPet = petDeserializer.fromJsonToObj(jsonPet);
         Pet expectedPet = new Pet.Builder()
-                .withPetName("Bill")
-                .withAnimalType(Animal.valueOf("DOG"))
+                .withName("Bill")
+                .withAnimal(Animal.valueOf("DOG"))
                 .build();
         assertEquals(expectedPet, parsedPet);
     }
 
     @Test
     public void shouldCreateArrayOfPetObjects() {
-        String jsonPets = "[{\"petName\": \"Bob\", \"animalType\": \"DOG\"}, {\"petName\": \"Bill\", \"animalType\": \"CAT\"}]";
+        String jsonPets = "[{\"name\": \"Bob\", \"animal\": \"DOG\"}, {\"name\": \"Bill\", \"animal\": \"CAT\"}]";
         ArrayList<Pet> parsedPets = petDeserializer.fromJsonToList(jsonPets);
         ArrayList<Pet> expectedPets = new ArrayList<>();
-        Pet pet1 = new Pet.Builder().withPetName("Bob").withAnimalType(Animal.valueOf("DOG")).build();
-        Pet pet2 = new Pet.Builder().withPetName("Bill").withAnimalType(Animal.valueOf("CAT")).build();
+        Pet pet1 = new Pet.Builder().withName("Bob").withAnimal(Animal.valueOf("DOG")).build();
+        Pet pet2 = new Pet.Builder().withName("Bill").withAnimal(Animal.valueOf("CAT")).build();
         expectedPets.add(pet1);
         expectedPets.add(pet2);
         assertEquals(parsedPets, expectedPets);

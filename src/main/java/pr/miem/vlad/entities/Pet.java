@@ -5,38 +5,38 @@ import pr.miem.vlad.restrictions.Animal;
 import java.util.Objects;
 
 public class Pet {
-    private final String petName;
+    private final String name;
     private final Animal animal;
 
-    private Pet(String petName, Animal animal) {
-        this.petName = petName;
+    private Pet(String name, Animal animal) {
+        this.name = name;
         this.animal = animal;
     }
 
-    public String getPetName() {
-        return petName;
+    public String getName() {
+        return name;
     }
 
-    public String getAnimalType() {
+    public String getAnimal() {
         return animal.name();
     }
 
     public static class Builder {
-        private String petName;
+        private String name;
         private Animal animal;
 
-        public Builder withPetName(String petName) {
-            this.petName = petName;
+        public Builder withName(String name) {
+            this.name = name;
             return this;
         }
 
-        public Builder withAnimalType(Animal animal) {
+        public Builder withAnimal(Animal animal) {
             this.animal = animal;
             return this;
         }
 
         public Pet build() {
-            return new Pet(petName, animal);
+            return new Pet(name, animal);
         }
 
     }
@@ -46,11 +46,11 @@ public class Pet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pet pet = (Pet) o;
-        return Objects.equals(petName, pet.petName) && animal == pet.animal;
+        return Objects.equals(name, pet.name) && animal == pet.animal;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(petName, animal);
+        return Objects.hash(name, animal);
     }
 }

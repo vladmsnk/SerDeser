@@ -11,8 +11,8 @@ public class PetSerializer implements Serializer<Pet> {
             throw new NullPointerException("Pet object does not exist!");
         }
         return "{" +
-                "\"petName\": " + '"' + pet.getPetName() + '"' +
-                ", \"animalType\": " + '"' + pet.getAnimalType() + '"' +
+                "\"petName\": " + '"' + pet.getName() + '"' +
+                ", \"animalType\": " + '"' + pet.getAnimal() + '"' +
                 "}";
     }
 

@@ -23,18 +23,18 @@ public class HomeDeserializerTest {
         ArrayList<Person> expectedPeople = new ArrayList<>();
 
         Pet pet = new Pet.Builder()
-                .withPetName("Musya")
-                .withAnimalType(Animal.valueOf("CAT"))
+                .withName("Musya")
+                .withAnimal(Animal.valueOf("CAT"))
                 .build();
 
         Pet pet1 = new Pet.Builder()
-                .withPetName("Anna")
-                .withAnimalType(Animal.valueOf("BIRD"))
+                .withName("Anna")
+                .withAnimal(Animal.valueOf("BIRD"))
                 .build();
 
         Pet pet2 = new Pet.Builder()
-                .withPetName("Egor")
-                .withAnimalType(Animal.valueOf("DOG"))
+                .withName("Egor")
+                .withAnimal(Animal.valueOf("DOG"))
                 .build();
 
         expectedPets1.add(pet);
@@ -44,18 +44,18 @@ public class HomeDeserializerTest {
         ArrayList<Pet> expectedPets2 = new ArrayList<>();
 
         Pet pet01 = new Pet.Builder()
-                .withPetName("Musya1")
-                .withAnimalType(Animal.valueOf("CAT"))
+                .withName("Musya1")
+                .withAnimal(Animal.valueOf("CAT"))
                 .build();
 
         Pet pet11 = new Pet.Builder()
-                .withPetName("Anna1")
-                .withAnimalType(Animal.valueOf("BIRD"))
+                .withName("Anna1")
+                .withAnimal(Animal.valueOf("BIRD"))
                 .build();
 
         Pet pet21 = new Pet.Builder()
-                .withPetName("Egor1")
-                .withAnimalType(Animal.valueOf("DOG"))
+                .withName("Egor1")
+                .withAnimal(Animal.valueOf("DOG"))
                 .build();
 
         expectedPets2.add(pet01);
@@ -105,8 +105,8 @@ public class HomeDeserializerTest {
         ArrayList<Person> expectedPeople2 = new ArrayList<>();
 
         Pet pet = new Pet.Builder()
-                .withPetName("Musya")
-                .withAnimalType(Animal.valueOf("CAT"))
+                .withName("Musya")
+                .withAnimal(Animal.valueOf("CAT"))
                 .build();
 
         expectedPets1.add(pet);
@@ -115,8 +115,8 @@ public class HomeDeserializerTest {
         ArrayList<Pet> expectedPets2 = new ArrayList<>();
 
         Pet pet01 = new Pet.Builder()
-                .withPetName("Tom")
-                .withAnimalType(Animal.valueOf("DOG"))
+                .withName("Tom")
+                .withAnimal(Animal.valueOf("DOG"))
                 .build();
 
         expectedPets2.add(pet01);
