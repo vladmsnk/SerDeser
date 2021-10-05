@@ -6,11 +6,38 @@ import java.util.Objects;
 public class Street {
 
     private final String streetName;
-    private final ArrayList<Home> homes;
+    private final ArrayList<House> houses;
 
-    public Street(String streetName, ArrayList<Home> homes) {
+    private Street(String streetName, ArrayList<House> houses) {
         this.streetName = streetName;
-        this.homes = homes;
+        this.houses = houses;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public ArrayList<House> getHouses() {
+        return new ArrayList<>(houses);
+    }
+
+    public static class Builder {
+        private String streetName;
+        private ArrayList<House> houses;
+
+        public Builder withStreetName(String streetName) {
+            this.streetName = streetName;
+            return this;
+        }
+
+        public Builder withHouses(ArrayList<House> houses) {
+            this.houses = houses;
+            return this;
+        }
+
+        public Street build() {
+            return new Street(streetName, houses);
+        }
     }
 
     @Override
@@ -18,38 +45,11 @@ public class Street {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Street street = (Street) o;
-        return Objects.equals(streetName, street.streetName) && Objects.equals(homes, street.homes);
+        return Objects.equals(streetName, street.streetName) && Objects.equals(houses, street.houses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(streetName, homes);
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public ArrayList<Home> getHomes() {
-        return new ArrayList<>(homes);
-    }
-
-    public static class Builder {
-        private String streetName;
-        private ArrayList<Home> homes;
-
-        public Builder withStreetName(String streetName) {
-            this.streetName = streetName;
-            return this;
-        }
-
-        public Builder withHomes(ArrayList<Home> homes) {
-            this.homes = homes;
-            return this;
-        }
-
-        public Street build() {
-            return new Street(streetName, homes);
-        }
+        return Objects.hash(streetName, houses);
     }
 }

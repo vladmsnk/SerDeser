@@ -38,7 +38,6 @@ public class Pet {
         public Pet build() {
             return new Pet(name, animal);
         }
-
     }
 
     @Override

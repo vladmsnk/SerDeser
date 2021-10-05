@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class PersonDeserializer implements Deserializer<Person> {
     public Person fromJsonToObj(String jsonStringOfPerson) {
-        ParseJsonObject parseJsonObject = new ParseJsonObject(jsonStringOfPerson);
-        Map<String, String> jsonMap = parseJsonObject.jsonParse();
+        JsonParser jsonParser = new JsonParser(jsonStringOfPerson);
+        Map<String, String> jsonMap = jsonParser.jsonParse();
         PetDeserializer petDeserializer = new PetDeserializer();
         ArrayList<Pet> pets = petDeserializer.fromJsonToList(jsonMap.get("pets"));
         return new Person.Builder()
-                .withName(jsonMap.get("personName"))
-                .withLastName(jsonMap.get("personLastName"))
+                .withName(jsonMap.get("name"))
+                .withLastName(jsonMap.get("lastName"))
                 .withMoney(Integer.parseInt(jsonMap.get("money")))
                 .withPets(pets)
                 .build();

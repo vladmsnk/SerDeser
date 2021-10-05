@@ -3,33 +3,30 @@ package pr.miem.vlad.entities;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Room {
-    private final int roomNumber;
+public class Apartment {
+    private final int apartmentNumber;
     private final ArrayList<Person> residents;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Room room = (Room) o;
-        return roomNumber == room.roomNumber && Objects.equals(residents, room.residents);
+        Apartment apartment = (Apartment) o;
+        return apartmentNumber == apartment.apartmentNumber && Objects.equals(residents, apartment.residents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roomNumber, residents);
+        return Objects.hash(apartmentNumber, residents);
     }
 
-    public Room(int roomNumber, ArrayList<Person> residents) {
-        this.roomNumber = roomNumber;
+    public Apartment(int apartmentNumber, ArrayList<Person> residents) {
+        this.apartmentNumber = apartmentNumber;
         this.residents = residents;
     }
-    public int getPeopleCount() {
-        return residents.size();
-    }
 
-    public String getRoomNumber() {
-        return String.valueOf(roomNumber);
+    public String getApartmentNumber() {
+        return String.valueOf(apartmentNumber);
     }
 
     public ArrayList<Person> getResidents() {
@@ -37,12 +34,12 @@ public class Room {
     }
 
     public static class Builder {
-        private int roomNumber;
+        private int apartmentNumber;
         private ArrayList<Person> residents;
 
 
-        public Builder withRoomNumber(int roomNumber) {
-            this.roomNumber = roomNumber;
+        public Builder withApartmentNumber(int apartmentNumber) {
+            this.apartmentNumber = apartmentNumber;
             return this;
         }
 
@@ -51,8 +48,8 @@ public class Room {
             return this;
         }
 
-        public Room build() {
-            return new Room(roomNumber, residents);
+        public Apartment build() {
+            return new Apartment(apartmentNumber, residents);
         }
     }
 }

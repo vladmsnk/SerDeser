@@ -1,31 +1,31 @@
 package pr.miem.vlad.serializations;
 
 
-import pr.miem.vlad.entities.Room;
+import pr.miem.vlad.entities.Apartment;
 
 import java.util.ArrayList;
 
-public class RoomSerializer implements Serializer<Room> {
+public class ApartmentSerializer implements Serializer<Apartment> {
 
-        public String objToJson(Room room) {
-            if (room == null) {
+        public String objToJson(Apartment apartment) {
+            if (apartment == null) {
                 throw new NullPointerException("Room object does not exist!");
             }
             PersonSerializer personSerializer = new PersonSerializer();
-            String people = personSerializer.ListOfObjToJson(room.getResidents());
+            String people = personSerializer.ListOfObjToJson(apartment.getResidents());
             return "{" +
-                    "\"roomNumber\": " + '"' + room.getRoomNumber() + '"' +
+                    "\"roomNumber\": " + '"' + apartment.getApartmentNumber() + '"' +
                     ", \"people\": " + people +
                     "}";
         }
 
-        public String ListOfObjToJson(ArrayList<Room> listOfRooms) {
-            if (listOfRooms.size() == 0) {
+        public String ListOfObjToJson(ArrayList<Apartment> listOfApartments) {
+            if (listOfApartments.size() == 0) {
                 return "";
             }
             String jsonStringOfRooms = "[";
-            for (Room room : listOfRooms) {
-                jsonStringOfRooms = jsonStringOfRooms.concat(objToJson(room));
+            for (Apartment apartment : listOfApartments) {
+                jsonStringOfRooms = jsonStringOfRooms.concat(objToJson(apartment));
                 jsonStringOfRooms += ", ";
             }
             jsonStringOfRooms = jsonStringOfRooms.substring(0, jsonStringOfRooms.length() - 2);

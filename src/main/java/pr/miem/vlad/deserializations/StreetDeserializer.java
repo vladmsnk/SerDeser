@@ -1,6 +1,6 @@
 package pr.miem.vlad.deserializations;
 
-import pr.miem.vlad.entities.Home;
+import pr.miem.vlad.entities.House;
 import pr.miem.vlad.entities.Street;
 import pr.miem.vlad.tools.Utils;
 
@@ -9,13 +9,13 @@ import java.util.Map;
 
 public class StreetDeserializer implements Deserializer<Street> {
     public Street fromJsonToObj(String jsonStringOfStreet) {
-        ParseJsonObject parseJsonObject = new ParseJsonObject(jsonStringOfStreet);
-        Map<String, String> mapOfJson = parseJsonObject.jsonParse();
-        HomeDeserializer homeDeserializer = new HomeDeserializer();
-        ArrayList<Home> homes = homeDeserializer.fromJsonToList(mapOfJson.get("homes"));
+        JsonParser jsonParser = new JsonParser(jsonStringOfStreet);
+        Map<String, String> mapOfJson = jsonParser.jsonParse();
+        HouseDeserializer houseDeserializer = new HouseDeserializer();
+        ArrayList<House> houses = houseDeserializer.fromJsonToList(mapOfJson.get("houses"));
         return new Street.Builder()
                 .withStreetName(mapOfJson.get("streetName"))
-                .withHomes(homes)
+                .withHouses(houses)
                 .build();
     }
 

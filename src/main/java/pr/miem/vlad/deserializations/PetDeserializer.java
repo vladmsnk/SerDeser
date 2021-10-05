@@ -10,8 +10,8 @@ import java.util.Map;
 public class PetDeserializer implements Deserializer<Pet> {
 
     public Pet fromJsonToObj(String jsonString) {
-        ParseJsonObject parseJsonObject = new ParseJsonObject(jsonString);
-        Map<String, String> jsonMap = parseJsonObject.jsonParse();
+        JsonParser jsonParser = new JsonParser(jsonString);
+        Map<String, String> jsonMap = jsonParser.jsonParse();
         if (!(jsonMap.containsKey("name") && jsonMap.containsKey("animal"))) {
             throw new IllegalArgumentException("Unknown key!");
         }

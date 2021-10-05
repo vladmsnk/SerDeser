@@ -2,7 +2,7 @@ package pr.miem.vlad.deserializations;
 import java.util.Map;
 import java.util.HashMap;
 
-public class ParseJsonObject {
+public class JsonParser {
     public final String jsonString;
     private int state;
     private final Map<String, String> jsonMap = new HashMap<>();
@@ -10,7 +10,7 @@ public class ParseJsonObject {
     private String currentKey;
     private int bracketCount;
 
-    public ParseJsonObject(String jsonString) {
+    public JsonParser(String jsonString) {
         this.jsonString = jsonString;
     }
 

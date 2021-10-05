@@ -12,8 +12,8 @@ public class ConsoleIO {
     private final Scanner scanner = new Scanner(System.in);
     private final ArrayList<Pet> pets = new ArrayList<>();
     private final ArrayList<Person> people = new ArrayList<>();
-    private final ArrayList<Room> rooms = new ArrayList<>();
-    private final ArrayList<Home> homes = new ArrayList<>();
+    private final ArrayList<Apartment> apartments = new ArrayList<>();
+    private final ArrayList<House> houses = new ArrayList<>();
 
     private void chooseYesOrNO() {
         System.out.println("1. Yes");
@@ -87,14 +87,14 @@ public class ConsoleIO {
                                 break;
                             }
                         }
-                        rooms.add(new Room.Builder().withRoomNumber(roomNumber).withResidents(people).build());
+                        apartments.add(new Apartment.Builder().withApartmentNumber(roomNumber).withResidents(people).build());
                         System.out.println("Do you want to add Room?");
                         chooseYesOrNO();
                         if (decision.equals("No") || decision.equals("2")) {
                             break;
                         }
                     }
-                    homes.add(new Home.Builder().withHomeNumber(homeNumber).withRooms(rooms).build());
+                    houses.add(new House.Builder().withHouseNumber(homeNumber).withApartment(apartments).build());
                     System.out.println("Do you want to add Home?");
                     chooseYesOrNO();
                     if (decision.equals("No") || decision.equals("2")) {
@@ -105,16 +105,16 @@ public class ConsoleIO {
             System.out.println("The street has been built!");
             break;
         }
-        return new Street.Builder().withStreetName(streetName).withHomes(homes).build();
+        return new Street.Builder().withStreetName(streetName).withHouses(houses).build();
     }
 
     public void printStreetToConsole(Street street) {
         System.out.println("Street name: " + street.getStreetName());
-        for (Home home : street.getHomes()) {
-            System.out.println("Home :" + home.getHomeNumber());
-            for (Room room : home.getRooms()) {
-                System.out.println(" Room :" + room.getRoomNumber());
-                for (Person person : room.getResidents()) {
+        for (House house : street.getHouses()) {
+            System.out.println("Home :" + house.getHouseNumber());
+            for (Apartment apartment : house.getApartments()) {
+                System.out.println(" Room :" + apartment.getApartmentNumber());
+                for (Person person : apartment.getResidents()) {
                     System.out.println("  Resident: " + person.getName() + " " + person.getLastName());
                     System.out.println("  Possesion: " + person.getMoney());
                     for (Pet pet : person.getPets()) {

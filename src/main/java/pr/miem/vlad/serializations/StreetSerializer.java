@@ -11,8 +11,8 @@ public class StreetSerializer implements Serializer<Street> {
         if (street == null) {
             throw new NullPointerException("Street object does not exist!");
         }
-        HomeSerializer homeSerializer = new HomeSerializer();
-        String homes = homeSerializer.ListOfObjToJson(street.getHomes());
+        HouseSerializer houseSerializer = new HouseSerializer();
+        String homes = houseSerializer.ListOfObjToJson(street.getHouses());
         return "{" +
                 "\"streetName\": " + '"' + street.getStreetName() + '"' +
                 ", \"homes\": " + homes +

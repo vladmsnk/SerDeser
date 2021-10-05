@@ -78,24 +78,24 @@ public class StreetDeserializerTest {
         expectedPeople.add(person1);
         expectedPeople.add(person2);
 
-        Room expectedRoom = new Room.Builder()
-                .withRoomNumber(34)
+        Apartment expectedApartment = new Apartment.Builder()
+                .withApartmentNumber(34)
                 .withResidents(expectedPeople)
                 .build();
 
-        ArrayList<Room> expectedRooms = new ArrayList<>();
-        expectedRooms.add(expectedRoom);
-        Home expectedHome = new Home.Builder()
-                .withHomeNumber(353)
-                .withRooms(expectedRooms)
+        ArrayList<Apartment> expectedApartments = new ArrayList<>();
+        expectedApartments.add(expectedApartment);
+        House expectedHouse = new House.Builder()
+                .withHouseNumber(353)
+                .withApartment(expectedApartments)
                 .build();
 
-        ArrayList<Home> expectedHomes = new ArrayList<>();
-        expectedHomes.add(expectedHome);
+        ArrayList<House> expectedHouses = new ArrayList<>();
+        expectedHouses.add(expectedHouse);
 
         Street expectedStreet = new Street.Builder()
                 .withStreetName("Lenin")
-                .withHomes(expectedHomes)
+                .withHouses(expectedHouses)
                 .build();
         assertEquals(parsedStreet, expectedStreet);
     }
