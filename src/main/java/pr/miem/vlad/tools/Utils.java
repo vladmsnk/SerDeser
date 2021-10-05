@@ -4,7 +4,7 @@ import pr.miem.vlad.restrictions.Animal;
 
 import java.util.ArrayList;
 
-public class Tools {
+public class Utils {
     //https://ru.stackoverflow.com
 
     public static int countEntry(String initialStr, String substr) {

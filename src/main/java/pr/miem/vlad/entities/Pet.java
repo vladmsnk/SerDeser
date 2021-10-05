@@ -8,21 +8,7 @@ public class Pet {
     private final String petName;
     private final Animal animal;
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pet pet = (Pet) o;
-        return Objects.equals(petName, pet.petName) && animal == pet.animal;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(petName, animal);
-    }
-
-    public Pet(String petName, Animal animal) {
+    private Pet(String petName, Animal animal) {
         this.petName = petName;
         this.animal = animal;
     }
@@ -53,5 +39,18 @@ public class Pet {
             return new Pet(petName, animal);
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return Objects.equals(petName, pet.petName) && animal == pet.animal;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(petName, animal);
     }
 }

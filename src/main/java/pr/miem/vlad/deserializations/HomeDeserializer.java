@@ -2,7 +2,7 @@ package pr.miem.vlad.deserializations;
 
 import pr.miem.vlad.entities.Home;
 import pr.miem.vlad.entities.Room;
-import pr.miem.vlad.tools.Tools;
+import pr.miem.vlad.tools.Utils;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class HomeDeserializer implements Deserializer<Home> {
     }
 
     public ArrayList<Home> fromJsonToList(String jsonStringOfHomes) {
-        ArrayList<String> arrayOfJsonObjects = Tools.splitJsonString(jsonStringOfHomes);
+        ArrayList<String> arrayOfJsonObjects = Utils.splitJsonString(jsonStringOfHomes);
         ArrayList<Home> homes = new ArrayList<>();
         for (String jsonObject : arrayOfJsonObjects) {
             Home home = fromJsonToObj(jsonObject);

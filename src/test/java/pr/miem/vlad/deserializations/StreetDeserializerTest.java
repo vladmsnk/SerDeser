@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StreetDeserializerTest {
 
-
     private final StreetDeserializer streetDeserializer = new StreetDeserializer();
 
     @Test

@@ -1,3 +1,5 @@
+package pr.miem.vlad;
+
 import pr.miem.vlad.io.InputFromFile;
 import pr.miem.vlad.entities.*;
 import pr.miem.vlad.restrictions.Animal;

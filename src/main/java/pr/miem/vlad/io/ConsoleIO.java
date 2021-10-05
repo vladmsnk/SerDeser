@@ -2,7 +2,7 @@ package pr.miem.vlad.io;
 
 import pr.miem.vlad.entities.*;
 import pr.miem.vlad.restrictions.Animal;
-import pr.miem.vlad.tools.Tools;
+import pr.miem.vlad.tools.Utils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +19,7 @@ public class ConsoleIO {
         System.out.println("1. Yes");
         System.out.println("2. No");
         decision = scanner.next();
-        while (!Tools.checkCorrectDecision(decision)) {
+        while (!Utils.checkCorrectDecision(decision)) {
             System.out.println("Wrong decision! Input again");
             decision = scanner.next();
         }
@@ -67,7 +67,7 @@ public class ConsoleIO {
                                 String petName = scanner.next();
                                 System.out.println("Input Animal Type");
                                 String animalType = scanner.next();
-                                while (!Tools.isEnumContainsString(animalType)) {
+                                while (!Utils.isEnumContainsString(animalType)) {
                                     System.out.println("Inappropriate animal!");
                                     animalType = scanner.next();
                                 }

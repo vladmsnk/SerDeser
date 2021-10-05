@@ -5,7 +5,7 @@ import pr.miem.vlad.entities.Room;
 import java.util.ArrayList;
 import java.util.Map;
 
-import pr.miem.vlad.tools.Tools;
+import pr.miem.vlad.tools.Utils;
 
 public class RoomDeserializer implements Deserializer<Room> {
 
@@ -23,7 +23,7 @@ public class RoomDeserializer implements Deserializer<Room> {
 
     public ArrayList<Room> fromJsonToList(String jsonStringOfRooms) {
 
-        ArrayList<String> arrayOfJsonObjects = Tools.splitJsonString(jsonStringOfRooms);
+        ArrayList<String> arrayOfJsonObjects = Utils.splitJsonString(jsonStringOfRooms);
         ArrayList<Room> rooms = new ArrayList<>();
         for (String jsonObject : arrayOfJsonObjects) {
             Room room = fromJsonToObj(jsonObject);
