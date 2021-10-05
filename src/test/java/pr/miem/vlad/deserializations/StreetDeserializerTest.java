@@ -15,9 +15,14 @@ public class StreetDeserializerTest {
 
     @Test
     public void shouldCreateArrayOfStreetObjects() {
-        String jsonObject = "{\"streetName\": \"Lenin\", \"homes\": [{\"homeNumber\": 353, \"rooms\": [{\"roomNumber\": 34, \"residents\": [{\"personName\": \"Bob\", \"personLastName\": \"Ivanov\", \"money\": 123, \"pets\": [{\"petName\": \"Musya\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor\", \"animalType\": \"DOG\"}]}, {\"personName\": \"Bob1\", \"personLastName\": \"Ivanov1\", \"money\": 1233, \"pets\": [{\"petName\": \"Musya1\", \"animalType\": \"CAT\"}, {\"petName\": \"Anna1\", \"animalType\": \"BIRD\"}, {\"petName\": \"Egor1\", \"animalType\": \"DOG\"}]}]}]}]}";
+        String jsonObject = "{\"streetName\": \"Lenin\", \"houses\": [{\"houseNumber\": 353, \"apartments\": [{\"apartmentNumber\": 34, \"residents\": [{\"name\": \"Bob\", \"lastName\": \"Ivanov\", \"money\": 123, \"pets\": [{\"name\": \"Musya\", \"animal\": \"CAT\"}, {\"name\": \"Anna\", \"animal\": \"BIRD\"}, {\"name\": \"Egor\", \"animal\": \"DOG\"}]}, {\"name\": \"Bob1\", \"lastName\": \"Ivanov1\", \"money\": 1233, \"pets\": [{\"name\": \"Musya1\", \"animal\": \"CAT\"}, {\"name\": \"Anna1\", \"animal\": \"BIRD\"}, {\"name\": \"Egor1\", \"animal\": \"DOG\"}]}]}]}]}";
         Street parsedStreet = streetDeserializer.fromJsonToObj(jsonObject);
+        Street expectedStreet = createStreet();
+        assertEquals(parsedStreet, expectedStreet);
+    }
 
+
+    private Street createStreet() {
         ArrayList<Pet> expectedPets1 = new ArrayList<>();
         ArrayList<Person> expectedPeople = new ArrayList<>();
 
@@ -93,10 +98,9 @@ public class StreetDeserializerTest {
         ArrayList<House> expectedHouses = new ArrayList<>();
         expectedHouses.add(expectedHouse);
 
-        Street expectedStreet = new Street.Builder()
+        return new Street.Builder()
                 .withStreetName("Lenin")
                 .withHouses(expectedHouses)
                 .build();
-        assertEquals(parsedStreet, expectedStreet);
     }
 }

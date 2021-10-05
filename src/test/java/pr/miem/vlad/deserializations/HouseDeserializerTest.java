@@ -18,7 +18,22 @@ public class HouseDeserializerTest {
     public void shouldCreateHomeObject() {
         String jsonObject = "{\"houseNumber\": 353, \"apartments\": [{\"apartmentNumber\": 34, \"residents\": [{\"name\": \"Bob\", \"lastName\": \"Ivanov\", \"money\": 123, \"pets\": [{\"name\": \"Musya\", \"animal\": \"CAT\"}, {\"name\": \"Anna\", \"animal\": \"BIRD\"}, {\"name\": \"Egor\", \"animal\": \"DOG\"}]}, {\"name\": \"Bob1\", \"lastName\": \"Ivanov1\", \"money\": 1233, \"pets\": [{\"name\": \"Musya1\", \"animal\": \"CAT\"}, {\"name\": \"Anna1\", \"animal\": \"BIRD\"}, {\"name\": \"Egor1\", \"animal\": \"DOG\"}]}]}]}";
         House parsedHouse = houseDeserializer.fromJsonToObj(jsonObject);
+        House expectedHouse = createHouse();
+        assertEquals(expectedHouse, parsedHouse);
+    }
 
+    @Test
+    public void shouldCreateArrayOfHouseObjects() {
+        String jsonObject = "[{\"houseNumber\": 343, \"apartments\": [{\"apartmentNumber\": 34, \"residents\": [{\"name\": \"Bob\", \"lastName\": \"Ivanov\", \"money\": 12323, \"pets\": [{\"name\": \"Musya\", \"animal\": \"CAT\"}]}]}]}," +
+                "{\"houseNumber\": 347, \"apartments\":  [{\"apartmentNumber\": 35, \"residents\": [{\"name\": \"Anna\", \"lastName\": \"Ivanova\", \"money\": 123, \"pets\": [{\"name\": \"Tom\", \"animal\": \"DOG\"}]}]}]}]";
+
+        ArrayList<House> parsedHouses = houseDeserializer.fromJsonToList(jsonObject);
+        ArrayList<House> expectedHouses = createHouseList();
+        assertEquals(expectedHouses, parsedHouses);
+    }
+
+
+   private House createHouse() {
         ArrayList<Pet> expectedPets1 = new ArrayList<>();
         ArrayList<Person> expectedPeople = new ArrayList<>();
 
@@ -86,20 +101,13 @@ public class HouseDeserializerTest {
 
         ArrayList<Apartment> expectedApartments = new ArrayList<>();
         expectedApartments.add(expectedApartment);
-        House expectedHouse = new House.Builder()
+        return new House.Builder()
                 .withHouseNumber(353)
                 .withApartment(expectedApartments)
                 .build();
-        assertEquals(expectedHouse, parsedHouse);
     }
 
-    @Test
-    public void shouldCreateArrayOfHoomObjects() {
-        String jsonObject = "[{\"houseNumber\": 343, \"rooms\": [{\"apartmentNumber\": 34, \"residents\": [{\"name\": \"Bob\", \"lastName\": \"Ivanov\", \"money\": 12323, \"pets\": [{\"name\": \"Musya\", \"animal\": \"CAT\"}]}]}]}," +
-                "{\"houseNumber\": 347, \"rooms\":  [{\"apartmentNumber\": 35, \"residents\": [{\"name\": \"Anna\", \"lastName\": \"Ivanova\", \"money\": 123, \"pets\": [{\"name\": \"Tom\", \"animal\": \"DOG\"}]}]}]}]";
-
-        ArrayList<House> parsedHouses = houseDeserializer.fromJsonToList(jsonObject);
-
+    private ArrayList<House> createHouseList() {
         ArrayList<Pet> expectedPets1 = new ArrayList<>();
         ArrayList<Person> expectedPeople1 = new ArrayList<>();
         ArrayList<Person> expectedPeople2 = new ArrayList<>();
@@ -148,26 +156,25 @@ public class HouseDeserializerTest {
                 .withResidents(expectedPeople2)
                 .build();
 
-        ArrayList<Apartment> expectedRooms1 = new ArrayList<>();
-        expectedRooms1.add(expectedApartment1);
+        ArrayList<Apartment> expectedApartments1 = new ArrayList<>();
+        expectedApartments1.add(expectedApartment1);
 
-        ArrayList<Apartment> expectedRooms2 = new ArrayList<>();
-        expectedRooms2.add(expectedApartment2);
+        ArrayList<Apartment> expectedApartments2 = new ArrayList<>();
+        expectedApartments2.add(expectedApartment2);
 
         House expectedHouse1 = new House.Builder()
                 .withHouseNumber(343)
-                .withApartment(expectedRooms1)
+                .withApartment(expectedApartments1)
                 .build();
         House expectedHouse2 = new House.Builder()
                 .withHouseNumber(347)
-                .withApartment(expectedRooms2)
+                .withApartment(expectedApartments2)
                 .build();
         ArrayList<House> expectedHouses = new ArrayList<>();
         expectedHouses.add(expectedHouse1);
         expectedHouses.add(expectedHouse2);
-        assertEquals(expectedHouses, parsedHouses);
+        return expectedHouses;
     }
-
 
 
 }

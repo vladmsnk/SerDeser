@@ -12,12 +12,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ApartmentDeserializerTest {
+
     private final ApartmentDeserializer apartmentDeserializer = new ApartmentDeserializer();
 
     @Test
     public void shouldCreateRoomObject() {
         String jsonObject = "{\"apartmentNumber\": 34, \"residents\": [{\"name\": \"Bob\", \"lastName\": \"Ivanov\", \"money\": 123, \"pets\": [{\"name\": \"Musya\", \"animal\": \"CAT\"}, {\"name\": \"Anna\", \"animal\": \"BIRD\"}, {\"name\": \"Egor\", \"animal\": \"DOG\"}]}, {\"name\": \"Bob1\", \"lastName\": \"Ivanov1\", \"money\": 1233, \"pets\": [{\"name\": \"Musya1\", \"animal\": \"CAT\"}, {\"name\": \"Anna1\", \"animal\": \"BIRD\"}, {\"name\": \"Egor1\", \"animal\": \"DOG\"}]}]}";
         Apartment parsedApartment = apartmentDeserializer.fromJsonToObj(jsonObject);
+        Apartment expectedApartment = createApartment();
+        assertEquals(expectedApartment, parsedApartment);
+    }
+
+    @Test
+    public void shouldCreateArrayOfApartmentObjects() {
+        String jsonObject = "{\"apartmentNumber\": 34, \"residents\": [{\"name\": \"Bob\", \"lastName\": \"Ivanov\", \"money\": 12323, \"pets\": [{\"name\": \"Musya\", \"animal\": \"CAT\"}]}]}," +
+                " {\"apartmentNumber\": 35, \"residents\": [{\"name\": \"Anna\", \"lastName\": \"Ivanova\", \"money\": 123, \"pets\": [{\"name\": \"Tom\", \"animal\": \"DOG\"}]}]}";
+        ArrayList<Apartment> parsedApartments = apartmentDeserializer.fromJsonToList(jsonObject);
+        ArrayList<Apartment> expectedApartments = createApartmentList();
+        assertEquals(expectedApartments, parsedApartments);
+    }
+
+    private Apartment createApartment() {
         ArrayList<Pet> expectedPets1 = new ArrayList<>();
         ArrayList<Person> expectedPeople = new ArrayList<>();
 
@@ -79,20 +94,13 @@ public class ApartmentDeserializerTest {
         expectedPeople.add(person1);
         expectedPeople.add(person2);
 
-        Apartment expectedApartment = new Apartment.Builder()
+        return new Apartment.Builder()
                 .withApartmentNumber(34)
                 .withResidents(expectedPeople)
                 .build();
-
-        assertEquals(expectedApartment, parsedApartment);
     }
 
-    @Test
-    public void shouldCreateArrayOfRoomObjects() {
-        String jsonObject = "{\"apartmentNumber\": 34, \"residents\": [{\"name\": \"Bob\", \"lastName\": \"Ivanov\", \"money\": 12323, \"pets\": [{\"name\": \"Musya\", \"animal\": \"CAT\"}]}]}," +
-                " {\"apartmentNumber\": 35, \"residents\": [{\"name\": \"Anna\", \"lastName\": \"Ivanova\", \"money\": 123, \"pets\": [{\"name\": \"Tom\", \"animal\": \"DOG\"}]}]}";
-        ArrayList<Apartment> parsedApartments = apartmentDeserializer.fromJsonToList(jsonObject);
-
+    private ArrayList<Apartment> createApartmentList() {
         ArrayList<Pet> expectedPets1 = new ArrayList<>();
         ArrayList<Person> expectedPeople1 = new ArrayList<>();
         ArrayList<Person> expectedPeople2 = new ArrayList<>();
@@ -145,8 +153,6 @@ public class ApartmentDeserializerTest {
         ArrayList<Apartment> expectedApartments = new ArrayList<>();
         expectedApartments.add(expectedApartment1);
         expectedApartments.add(expectedApartment2);
-        assertEquals(expectedApartments, parsedApartments);
+        return expectedApartments;
     }
-
-
 }
