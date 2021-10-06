@@ -18,7 +18,7 @@ public class App {
         String option;
         while (state != 7) {
             switch (state) {
-                case 0:
+                case 0 -> {
                     System.out.println("Choose option");
                     System.out.println("Standard input");
                     System.out.println("Input from file");
@@ -28,18 +28,18 @@ public class App {
                     } else if (option.equals("Input from file")) {
                         state = 2;
                     }
-                break;
-                case 1:
+                }
+                case 1 -> {
                     currentStreet = consoleInput.getStreetFromConsole();
                     state = 3;
-                break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.println("Input file Name");
                     String inputFileName = scanner.nextLine();
                     currentStreet = inputFromFile.parseFile((fullPath + inputFileName));
                     state = 3;
-                break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("Choose option");
                     System.out.println("Print to console");
                     System.out.println("Write in file");
@@ -49,18 +49,18 @@ public class App {
                     } else if (option.equals("Write in file")) {
                         state = 5;
                     }
-                break;
-                case 4:
+                }
+                case 4 -> {
                     consoleOutput.printStreetToConsole(currentStreet);
                     state = 6;
-                break;
-                case 5:
+                }
+                case 5 -> {
                     System.out.println("Input output File Name");
                     String outputFileName = scanner.nextLine();
                     outputToFile.writeToFile(currentStreet, fullPath + outputFileName);
                     state = 6;
-                break;
-                case 6:
+                }
+                case 6 -> {
                     System.out.println("Do you want to finish?");
                     System.out.println("Yes");
                     System.out.println("No");
@@ -70,7 +70,7 @@ public class App {
                     } else if (option.equals("No")) {
                         state = 0;
                     }
-                break;
+                }
             }
         }
     }
