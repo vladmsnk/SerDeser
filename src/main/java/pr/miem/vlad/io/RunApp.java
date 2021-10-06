@@ -6,48 +6,56 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class RunApp {
-    public void run() throws IOException {
-        System.out.println("Choose option");
-        System.out.println("1. Standard input");
-        System.out.println("2. Input from file");
-        Scanner scanner = new Scanner(System.in);
-        String option = scanner.nextLine();
-        ConsoleIO consoleIO = new ConsoleIO();
-        Street street;
-        while (true) {
-            if (option.equals("Standard input") || option.equals("1")) {
-                street = consoleIO.constructStreetFromConsole();
-                break;
-            }
-            else if (option.equals("Input from file") || option.equals("2")) {
-                System.out.println("Input file Name");
-                String inputFileName = scanner.next();
-                InputFromFile inputFromFile = new InputFromFile(inputFileName);
-                street = inputFromFile.parseFile();
-                break;
-            }
-            else {
-                System.out.println("Wrong! Choose option again");
-            }
-        }
-        System.out.println("Choose output way");
-        System.out.println("1. Output to console");
-        System.out.println("2. Output to file");
-        while (true) {
-            option = scanner.next();
-            if (option.equals("Output to console") || option.equals("1")) {
-                consoleIO.printStreetToConsole(street);
-                break;
-            }
-            else if (option.equals("Output to file") || option.equals("2")) {
-                System.out.println("Input file Name");
-                String outputFileName = scanner.next();
-                OutputToFIle outputToFIle = new OutputToFIle(outputFileName, street);
-                break;
-            }
-            else {
-                System.out.println("Wrong! Choose option again");
-            }
+    private int state;
+    private final Scanner scanner = new Scanner(System.in);
+    public void run() {
+        String option;
+        switch (state) {
+            case 0:
+                System.out.println("Choose option");
+                System.out.println("Standard input");
+                System.out.println("Input from file");
+                option = scanner.nextLine();
+                if (option.equals("Standard input")) {
+                    state = 1;
+                } else if (option.equals("Input from file")) {
+                    state = 2;
+                }
+            break;
+            case 1:
+                state = 3;
+            break;
+            case 2:
+                state = 3;
+            break;
+            case 3:
+                System.out.println("Choose option");
+                System.out.println("Print to console");
+                System.out.println("Write in file");
+                option = scanner.nextLine();
+                if (option.equals("Print to console")) {
+                    state = 4;
+                } else if (option.equals("Write in file")) {
+                    state = 5;
+                }
+            break;
+            case 4:
+                state = 6;
+
+            break;
+            case 5:
+                state = 6;
+
+            break;
+            case 6:
+                System.out.println("Do you want to finish?");
+                System.out.println("Yes");
+                System.out.println("No");
+                option = scanner.nextLine();
+                if (option.equals("No")) {
+                    state = 0;
+                }
+            break;
         }
 
     }
