@@ -152,13 +152,6 @@ public class ConsoleInput {
         return false;
     }
 
-    private boolean isRightFormat(String str) {
-        if (!str.isEmpty()) {
-            return (str.equals("Yes"));
-        }
-        return false;
-    }
-
     private boolean isStrBelongsAnimal(String str) {
         for (Animal animal : Animal.values()) {
             if (str.equals(animal.name())) {

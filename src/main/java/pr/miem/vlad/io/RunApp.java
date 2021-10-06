@@ -8,7 +8,12 @@ import java.util.Scanner;
 public class RunApp {
     private int state;
     private final Scanner scanner = new Scanner(System.in);
-    public void run() {
+    private final ConsoleInput consoleInput = new ConsoleInput();
+    private final ConsoleOutput consoleOutput = new ConsoleOutput();
+    private final InputFromFile inputFromFile = new InputFromFile();
+    private final OutputToFIle outputToFile = new OutputToFIle();
+    private Street currentStreet;
+    public void run() throws IOException {
         String option;
         switch (state) {
             case 0:
@@ -23,9 +28,12 @@ public class RunApp {
                 }
             break;
             case 1:
+                currentStreet = consoleInput.getStreetFromConsole();
                 state = 3;
             break;
             case 2:
+                String inputFileName = scanner.next();
+                currentStreet = inputFromFile.parseFile(inputFileName);
                 state = 3;
             break;
             case 3:
@@ -40,12 +48,13 @@ public class RunApp {
                 }
             break;
             case 4:
+                consoleOutput.printStreetToConsole(currentStreet);
                 state = 6;
-
             break;
             case 5:
+                String outputFileName = scanner.next();
+                outputToFile.writeToFile(currentStreet, outputFileName);
                 state = 6;
-
             break;
             case 6:
                 System.out.println("Do you want to finish?");
