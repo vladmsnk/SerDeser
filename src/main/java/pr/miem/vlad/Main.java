@@ -7,27 +7,11 @@ import pr.miem.vlad.serializations.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import pr.miem.vlad.io.App;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        InputFromFile inputFromFile = new InputFromFile("C:\\Users\\влад\\IdeaProjects\\prSchool\\src\\test\\java\\test.json");
-        Pet pet = new Pet.Builder()
-                .withName("Tomas")
-                .withAnimal(Animal.BIRD)
-                .build();
-        ArrayList<Pet> pets = new ArrayList<>();
-        pets.add(pet);
-        Person person = new Person.Builder()
-                .withName("Vlad")
-                .withLastName("Egorov")
-                .withMoney(123)
-                .withPets(pets)
-                .build();
-        PetSerializer petSerializer = new PetSerializer();
-        String petSerialized = petSerializer.objToJson(pet);
-        PersonSerializer personSerializer = new PersonSerializer();
-        String personSerialized = personSerializer.objToJson(person);
-        System.out.println(personSerialized);
-
+        App app = new App();
+        app.runApp();
     }
 }

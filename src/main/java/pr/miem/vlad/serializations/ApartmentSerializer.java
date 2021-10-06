@@ -21,7 +21,7 @@ public class ApartmentSerializer implements Serializer<Apartment> {
 
         public String ListOfObjToJson(ArrayList<Apartment> listOfApartments) {
             if (listOfApartments.size() == 0) {
-                return "";
+                return "[]";
             }
             String jsonStringOfRooms = "[";
             for (Apartment apartment : listOfApartments) {

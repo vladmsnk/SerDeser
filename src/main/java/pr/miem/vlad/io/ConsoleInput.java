@@ -27,7 +27,7 @@ public class ConsoleInput {
 
 
     public Street getStreetFromConsole() {
-        while (state != 12) {
+        while (state != 13) {
             transmit();
         }
         return streetBuilder.build();
@@ -42,6 +42,7 @@ public class ConsoleInput {
                     state = 1;
                     streetBuilder.withStreetName(currentInput);
                 }
+            break;
             case 1:
                 System.out.println("Enter House Number");
                 currentInput = scanner.next();
@@ -50,6 +51,7 @@ public class ConsoleInput {
                     int houseNumber = Integer.parseInt(currentInput);
                     houseBuilder.withHouseNumber(houseNumber);
                 }
+            break;
             case 2:
                 System.out.println("Enter Apartment Number");
                 currentInput = scanner.next();
@@ -58,6 +60,7 @@ public class ConsoleInput {
                     int apartmentNumber = Integer.parseInt(currentInput);
                     apartmentBuilder.withApartmentNumber(apartmentNumber);
                 }
+            break;
             case 3:
                 System.out.println("Enter Person's Name");
                 currentInput = scanner.next();
@@ -65,6 +68,7 @@ public class ConsoleInput {
                     personBuilder.withName(currentInput);
                     state = 4;
                 }
+            break;
             case 4:
                 System.out.println("Enter Person's LastName");
                 currentInput = scanner.next();
@@ -72,6 +76,7 @@ public class ConsoleInput {
                     personBuilder.withLastName(currentInput);
                     state = 5;
                 }
+            break;
             case 5:
                 System.out.println("Enter Person's money");
                 currentInput = scanner.next();
@@ -80,6 +85,7 @@ public class ConsoleInput {
                     personBuilder.withMoney(money);
                     state = 6;
                 }
+            break;
             case 6:
                 System.out.println("Enter Pet's name");
                 currentInput = scanner.next();
@@ -87,6 +93,7 @@ public class ConsoleInput {
                     petBuilder.withName(currentInput);
                     state = 7;
                 }
+            break;
             case 7:
                 System.out.println("Enter Animal type");
                 currentInput = scanner.next();
@@ -95,6 +102,7 @@ public class ConsoleInput {
                     state = 8;
                     pets.add(petBuilder.build());
                 }
+            break;
             case 8:
                 System.out.println("Do you want to add a Pet?");
                 System.out.println("Yes");
@@ -107,6 +115,7 @@ public class ConsoleInput {
                     personBuilder.withPets(pets);
                     residents.add(personBuilder.build());
                 }
+            break;
             case 9:
                 System.out.println("Do you want to add a Person?");
                 System.out.println("Yes");
@@ -119,6 +128,7 @@ public class ConsoleInput {
                     apartmentBuilder.withResidents(residents);
                     apartments.add(apartmentBuilder.build());
                 }
+            break;
             case 10:
                 System.out.println("Do you want to add a Apartment?");
                 System.out.println("Yes");
@@ -131,11 +141,22 @@ public class ConsoleInput {
                     houseBuilder.withApartment(apartments);
                     houses.add(houseBuilder.build());
                 }
+            break;
             case 11:
+                System.out.println("Do you want to add a House?");
+                System.out.println("Yes");
+                System.out.println("No");
+                currentInput = scanner.next();
+                if (currentInput.equals("Yes")) {
+                    state = 1;
+                } else if (currentInput.equals("No")) {
+                    state = 12;
+                }
+            case 12:
                 System.out.println("Street has been build!");
                 streetBuilder.withHouses(houses);
-                state = 12;
-            case 12:
+                state = 13;
+            case 13:
             break;
         }
 

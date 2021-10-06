@@ -20,7 +20,7 @@ public class StreetSerializer implements Serializer<Street> {
     }
     public String ListOfObjToJson(ArrayList<Street> listOfObj) {
         if (listOfObj.size() == 0) {
-            return "";
+            return "[]";
         }
         String jsonString = "[";
         for (Street street : listOfObj) {

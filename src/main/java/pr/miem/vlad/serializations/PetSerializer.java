@@ -18,7 +18,7 @@ public class PetSerializer implements Serializer<Pet> {
 
     public String ListOfObjToJson(ArrayList<Pet> listOfPets) {
         if (listOfPets == null) {
-            return "";
+            return "[]";
         }
         String jsonStringOfPets = "[";
         for (Pet pet : listOfPets) {

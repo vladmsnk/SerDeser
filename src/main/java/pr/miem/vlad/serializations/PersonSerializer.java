@@ -20,7 +20,7 @@ public class PersonSerializer implements Serializer<Person> {
     }
     public String ListOfObjToJson(ArrayList<Person> listOfPeople) {
         if (listOfPeople == null) {
-            return "";
+            return "[]";
         }
         String jsonStringOfPeople = "[";
         for (Person person : listOfPeople) {

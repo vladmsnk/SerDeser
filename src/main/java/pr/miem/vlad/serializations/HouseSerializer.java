@@ -16,13 +16,13 @@ public class HouseSerializer implements Serializer<House> {
         String rooms = apartmentSerializer.ListOfObjToJson(house.getApartments());
         return "{" +
                 "\"homeNumber\": " + '"' + house.getHouseNumber() + '"' +
-                ", \"rooms\": " + '"' + rooms +
+                ", \"rooms\": " + rooms +
                 "}";
     }
 
     public String ListOfObjToJson(ArrayList<House> listOfHouses) {
         if (listOfHouses.size() == 0) {
-            return "";
+            return "[]";
         }
         String jsonStringOfHomes = "[";
         for (House house : listOfHouses) {
