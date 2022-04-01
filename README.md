@@ -1,1 +1,1 @@
-# This task was assigned to make me met with Java. It is currently in developing
+# Implementing own serialization and deserealization of JSON With finite State Machine
